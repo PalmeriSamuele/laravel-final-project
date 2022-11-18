@@ -84,130 +84,36 @@
                     </div>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane" id="grid-view">							
+                        <div class="tab-pane active" id="grid-view">							
                             <div class="row">
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="img/product/6.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
+                                @foreach ($products as $product )
+                                    <!-- Single-product start -->
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <span class="pro-label new-label">new</span>
+                                                <span class="pro-price-2">$ {{$product->title}}</span>
+                                                <a href="/product/{{$product->id}}"><img src={{asset("assets/img/product/6.jpg")}} alt="" /></a>
                                             </div>
-                                            <div class="product-action clearfix">
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label sale-label">Sale</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="img/product/3.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                            <div class="product-info clearfix text-center">
+                                                <div class="fix">
+                                                    <h4 class="post-title"><a href="#">{{$product->title}}</a></h4>
+                                                </div>
+                                                <div class="product-action clearfix">
+                                                    <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                    <a href="/cart" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="img/product/11.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="img/product/2.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="img/product/1.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="img/product/12.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
+                                    <!-- Single-product end -->
+                                @endforeach
+
+
+
                             </div>
                         </div>
-                        <div class="tab-pane active" id="list-view">							
+                        <div class="tab-pane" id="list-view">							
                             <div class="row shop-list">
                                 <!-- Single-product start -->
                                 <div class="col-lg-12">

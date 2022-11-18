@@ -4,6 +4,6 @@
 
 @section('content')
 		@include('partials.blog')
-
+		@include('partials.footer')
 @endsection
 		

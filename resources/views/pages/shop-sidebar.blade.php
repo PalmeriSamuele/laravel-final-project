@@ -5,5 +5,6 @@
 
 @section('content')
 	@include('partials.shop-sidebar')
+	@include('partials.footer')
 @endsection
 		

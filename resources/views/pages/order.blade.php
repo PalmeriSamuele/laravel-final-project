@@ -5,6 +5,7 @@
 
 @section('content')
 	@include('partials.order')
+	@include('partials.footer')
 @endsection
 		
 

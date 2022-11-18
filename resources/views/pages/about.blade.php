@@ -6,6 +6,7 @@
 	<!-- WRAPPER START -->
 	<div class="wrapper bg-dark-white">
 		@include('partials.about')
+		@include('partials.footer')
 	</div>
 
 @endsection

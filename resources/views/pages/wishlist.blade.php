@@ -5,6 +5,7 @@
 
 @section('content')
 	@include('partials.wishlist')
+	@include('partials.footer')
 @endsection
 		
 

@@ -5,5 +5,6 @@
 
 @section('content')
 	@include('partials.contact')
+	@include('partials.footer')
 @endsection
 		

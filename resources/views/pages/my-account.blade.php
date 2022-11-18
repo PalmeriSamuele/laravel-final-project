@@ -5,6 +5,7 @@
 
 @section('content')
 	@include('partials.my-account')
+	@include('partials.footer')
 @endsection
 		
 

@@ -5,6 +5,7 @@
 
 @section('content')
 	@include('partials.single-product')
+	@include('partials.footer')
 @endsection
 		
 

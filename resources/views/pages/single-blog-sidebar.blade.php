@@ -5,6 +5,8 @@
 
 @section('content')
 	@include('partials.single-blog-sidebar')
+
+	@include('partials.footer')
 @endsection
 		
 		

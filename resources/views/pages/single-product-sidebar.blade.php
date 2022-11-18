@@ -4,6 +4,7 @@
 
 @section('content')
 	@include('partials.single-product-sidebar')
+	@include('partials.footer')
 @endsection
 		
 		

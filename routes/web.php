@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,18 +40,27 @@ Route::get('/my-contact', function () {
 Route::get('/order', function () {
     return view('pages.order');
 });
+
+
+
+
 Route::get('/shop-list', function () {
-    return view('pages.shop-list');
+    $products = Product::all();
+    return view('pages.shop-list',compact('products'));
 });
+
+Route::get('/create/product',[ProductController::class,'create']);
+Route::post('/store/product',[ProductController::class,'store']);
+
 Route::get('/shop-sidebar', function () {
-    return view('pages.sidebar');
+    return view('pages.shop-sidebar');
 });
 Route::get('/shop', function () {
     return view('pages.shop');
 });
-Route::get('/product', function () {
-    return view('pages.single-product');
-});
+
+Route::get('/product/{id}',[ProductController::class,'show']);
+
 Route::get('/product-sidebar', function () {
     return view('pages.single-product-sidebar');
 });
@@ -61,6 +72,10 @@ Route::get('/blog-sidebar', function () {
 });
 Route::get('/wishlist', function () {
     return view('pages.wishlist');
+});
+// ------- BACKOFFICE ------
+Route::get('/backoffice', function () {
+    return view('pages.backoffice.pages.backoffice');
 });
 
 

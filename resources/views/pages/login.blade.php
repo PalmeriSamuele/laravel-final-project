@@ -5,6 +5,7 @@
 
 @section('content')
 	@include('partials.login')
+	@include('partials.footer')
 @endsection
 		
 

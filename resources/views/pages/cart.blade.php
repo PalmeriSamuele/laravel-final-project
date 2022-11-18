@@ -4,5 +4,6 @@
 
 @section('content')
 	@include('partials.cart')
+	@include('partials.footer')
 @endsection
 		

@@ -46,7 +46,7 @@
 		<div class="wrapper bg-dark-white">
 			@include('partials.header')
 			@yield('content')
-			@include('partials.footer')
+			
 		</div>
 
 		<!-- all js here -->
