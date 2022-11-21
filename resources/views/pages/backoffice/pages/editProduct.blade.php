@@ -1,12 +1,15 @@
 @extends('pages.backoffice.layout.app')
 
 @section('content-backoffice')
-    <form class="d-flex flex-column col-4 m-auto gap-2 justify-content-center mt-3" action="/store/product" method="post" enctype='multipart/form-data'>
+    <form class="d-flex flex-column col-4 m-auto gap-2 justify-content-center mt-3" action="/update/product/{{$product->id}}" method="post" enctype='multipart/form-data'>
         @csrf
-        <input type="text" name="title" placeholder="Nom du produit">
-        <textarea name="desc" cols="30" rows="10"></textarea>
-        <input type="number" name="price" placeholder="Prix">
+        @method('PUT')
+        <input type="text" name="title" value="{{old('title',$product->title)}}">
+        <textarea name="desc" cols="30" rows="10">{{old('desc',$product->desc)}}</textarea>
+        <input type="number" name="price"  value={{old('price',$product->price)}}>
         <select name="size">
+            <option value="{{$product->size}}">{{$product->size}}</option>
+
             <option value="XS">XS</option>
             <option value="S">S</option>
             <option value="M">M</option>
@@ -21,6 +24,8 @@
         </datalist> --}}
 
         <select name="categories_id" id="" class="p-2">
+            <option value={{$product->categorie->id}}>{{$product->categorie->name}}</option>
+
             @foreach ($categories as $cat )
                 <option value={{$cat->id}}>{{$cat->name}}</option>
             @endforeach

@@ -51,8 +51,7 @@ Route::get('/shop-list', function () {
     return view('pages.shop-list',compact('products'));
 });
 
-Route::get('/create/product',[ProductController::class,'create']);
-Route::post('/store/product',[ProductController::class,'store']);
+
 
 Route::get('/shop-sidebar', function () {
     return view('pages.shop-sidebar');
@@ -82,6 +81,11 @@ Route::delete('/delete/product/{id}',[ProductController::class,'destroy']);
 Route::get('/backoffice', function () {
     return view('pages.backoffice.pages.backoffice');
 });
+
+Route::get('/create/product',[ProductController::class,'create']);
+Route::post('/store/product',[ProductController::class,'store']);
+Route::get('/edit/product/{id}',[ProductController::class,'edit']);
+Route::put('/update/product/{id}',[ProductController::class,'update']);
 
 
 
