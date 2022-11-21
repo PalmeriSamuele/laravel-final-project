@@ -1,6 +1,6 @@
 @extends('pages.backoffice.layout.app')
 
-@section('content')
+@section('content-backoffice')
     <form class="d-flex flex-column col-4 m-auto gap-2 justify-content-center mt-3" action="/store/product" method="post" enctype='multipart/form-data'>
         @csrf
         <input type="text" name="title" placeholder="Nom du produit">

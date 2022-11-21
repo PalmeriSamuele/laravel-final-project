@@ -1,3 +1,4 @@
+
 <!-- Mobile-header-top Start -->
 <div class="mobile-header-top d-block d-md-none">
     <div class="container">
@@ -46,11 +47,11 @@
         <!-- Slider-banner start -->
         <div class="slider-banner">
             <div class="single-banner banner-1">
-                <a class="banner-thumb" href="#"><img src={{asset("assets/img/banner/1.jpg")}} alt="" /></a>
+                <a class="banner-thumb" href="#"><img src={{'assets/img/product/'. $new->image}} alt="" /></a>
                 <span class="pro-label new-label">new</span>
-                <span class="price">$50.00</span>
+                <span class="price">${{$new->price}}</span>
                 <div class="banner-brief">
-                    <h2 class="banner-title"><a href="#">Product name</a></h2>
+                    <h2 class="banner-title"><a href="#">{{$new->title}}</a></h2>
                     <p class="mb-0">Furniture</p>
                 </div>
                 <a href="#" class="button-one font-16px" data-text="Buy now">Buy now</a>
@@ -206,110 +207,32 @@
                 <div class="section-title text-center">
                     <h2 class="title-border">Featured Products</h2>
                 </div>
+
                 <div class="product-slider style-1 arrow-left-right">
-                    <!-- Single-product start -->
-                    <div class="single-product">
-                        <div class="product-img">
-                            <span class="pro-label new-label">new</span>
-                            <a href="single-product.html"><img src={{asset("assets/img/product/1.jpg")}} alt="" /></a>
-                            <div class="product-action clearfix">
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>										
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                    @foreach ($sliders as $slide )
+                        <!-- Single-product start -->
+                        <div class="single-product">
+                            <div class="product-img">
+                                <span class="pro-label new-label">new</span>
+                                <a href="single-product.html"><img src={{asset('assets/img/product/'. $slide->image)}} alt="" /></a>
+                                <div class="product-action clearfix">
+                                    <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>										
+                                    <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="product-info clearfix">
+                                <div class="fix">
+                                    <h4 class="post-title floatleft"><a href="#">{{$slide->title}}</a></h4>
+                                    <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
+                                </div>
+                                <div class="fix">
+                                    <span class="pro-price floatleft">$ {{$slide->price}}</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="product-info clearfix">
-                            <div class="fix">
-                                <h4 class="post-title floatleft"><a href="#">dummy Product name</a></h4>
-                                <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
-                            </div>
-                            <div class="fix">
-                                <span class="pro-price floatleft">$ 56.20</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single-product end -->
-                    <!-- Single-product start -->
-                    <div class="single-product">
-                        <div class="product-img">
-                            <span class="pro-label sale-label">Sale</span>
-                            <a href="single-product.html"><img src={{asset("assets/img/product/2.jpg")}} alt="" /></a>
-                            <div class="product-action clearfix">
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info clearfix">
-                            <div class="fix">
-                                <h4 class="post-title floatleft"><a href="#">dummy Product name</a></h4>
-                                <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
-                            </div>
-                            <div class="fix">
-                                <span class="pro-price floatleft">$ 56.20</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single-product end -->
-                    <!-- Single-product start -->
-                    <div class="single-product">
-                        <div class="product-img">
-                            <a href="single-product.html"><img src={{asset("assets/img/product/3.jpg")}} alt="" /></a>
-                            <div class="product-action clearfix">
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info clearfix">
-                            <div class="fix">
-                                <h4 class="post-title floatleft"><a href="#">dummy Product name</a></h4>
-                                <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
-                            </div>
-                            <div class="fix">
-                                <span class="pro-price floatleft">$ 56.20</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single-product end -->
-                    <!-- Single-product start -->
-                    <div class="single-product">
-                        <div class="product-img">
-                            <a href="single-product.html"><img src="img/product/4.jpg" alt="" /></a>
-                            <div class="product-action clearfix">
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info clearfix">
-                            <div class="fix">
-                                <h4 class="post-title floatleft"><a href="#">dummy Product name</a></h4>
-                                <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
-                            </div>
-                            <div class="fix">
-                                <span class="pro-price floatleft">$ 56.20</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single-product end -->
-                    <!-- Single-product start -->
-                    <div class="single-product">
-                        <div class="product-img">
-                            <span class="pro-label new-label">new</span>
-                            <a href="single-product.html"><img src="img/product/3.jpg" alt="" /></a>
-                            <div class="product-action clearfix">
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info clearfix">
-                            <div class="fix">
-                                <h4 class="post-title floatleft"><a href="#">dummy Product name</a></h4>
-                                <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
-                            </div>
-                            <div class="fix">
-                                <span class="pro-price floatleft">$ 56.20</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single-product end -->
+                        <!-- Single-product end -->
+                    @endforeach
+
                 </div>
             </div>
         </div>

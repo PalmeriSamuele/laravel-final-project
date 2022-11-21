@@ -45,6 +45,7 @@
 	<body>
 		<div class="wrapper bg-dark-white">
 			@include('partials.header')
+			@include('layout.flash')
 			@yield('content')
 			
 		</div>

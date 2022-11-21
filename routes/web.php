@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.home');
+    $sliders = Product::inRandomOrder()->limit(5)->get();
+    $new = Product::latest()->first();
+    return view('pages.home',compact('sliders','new'));
 });
 Route::get('/about', function () {
     return view('pages.about');
@@ -74,6 +76,9 @@ Route::get('/wishlist', function () {
     return view('pages.wishlist');
 });
 // ------- BACKOFFICE ------
+Route::get('/products',[ProductController::class,'index']);
+Route::delete('/delete/product/{id}',[ProductController::class,'destroy']);
+
 Route::get('/backoffice', function () {
     return view('pages.backoffice.pages.backoffice');
 });
