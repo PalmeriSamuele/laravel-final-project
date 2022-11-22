@@ -57,10 +57,10 @@
                 <a href="#" class="button-one font-16px" data-text="Buy now">Buy now</a>
             </div>
             <div class="single-banner banner-2">
-                <a class="banner-thumb" href="#"><img src={{asset("assets/img/banner/2.jpg")}} alt="" /></a>
+                <a class="banner-thumb" href="#"><img src={{'assets/img/product/' . $favorite->image}} alt="" /></a>
                 <div class="banner-brief">
-                    <h2 class="banner-title"><a href="#">New Product 2021</a></h2>
-                    <p class="hidden-md hidden-sm d-none d-md-block">Lorem Ipsum is simply dummy text of the printing and types sate industry. Lorem Ipsum has been the industry.</p>
+                    <h2 class="banner-title"><a href="#">{{$favorite->title}}</a></h2>
+                    <p class="hidden-md hidden-sm d-none d-md-block">{{$favorite->desc}}</p>
                     <a href="#" class="button-one font-16px" data-text="Buy now">Buy now</a>
                 </div>
             </div>
@@ -72,9 +72,10 @@
         <div class="slider-area">
             <div class="bend niceties preview-2">
                 <div id="ensign-nivoslider" class="slides">
-                    <img src={{asset("assets/img/slider/slider-1/1.jpg")}} alt="" title="#slider-direction-1"  />
-                    <img src={{asset("assets/img/slider/slider-1/2.jpg")}} alt="" title="#slider-direction-2"  />
-                    <img src={{asset("assets/img/slider/slider-1/3.jpg")}} alt="" title="#slider-direction-3"  />
+                    @foreach ($carousels as $carousel)
+                        <img src='assets/img/slider/slider-1/{{$carousel->image}}' alt="" title="#slider-direction-1"  />
+
+                    @endforeach
                 </div>
                 <!-- direction 1 -->
                 <div id="slider-direction-1" class="t-cn slider-direction">
@@ -216,14 +217,14 @@
                                 <span class="pro-label new-label">new</span>
                                 <a href="single-product.html"><img src={{asset('assets/img/product/'. $slide->image)}} alt="" /></a>
                                 <div class="product-action clearfix">
-                                    <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>										
+                                    <a href="" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>										
                                     <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                 </div>
                             </div>
                             <div class="product-info clearfix">
                                 <div class="fix">
                                     <h4 class="post-title floatleft"><a href="#">{{$slide->title}}</a></h4>
-                                    <p class="floatright hidden-sm d-none d-md-block">Furniture</p>
+                                    <p class="floatright hidden-sm d-none d-md-block">{{$slide->categorie->name}}</p>
                                 </div>
                                 <div class="fix">
                                     <span class="pro-price floatleft">$ {{$slide->price}}</span>
@@ -338,3 +339,4 @@
     </div>
 </div>
 <!-- SUBSCRIVE-AREA END -->
+@include('partials.quickview')

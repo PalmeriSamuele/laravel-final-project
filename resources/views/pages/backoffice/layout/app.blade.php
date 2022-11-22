@@ -38,6 +38,8 @@
     <!-- responsive css -->
     <link rel="stylesheet" href={{asset("assets/css/responsive.css")}}>
     <!-- modernizr css -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src={{asset("assets/js/vendor/modernizr-3.11.2.min.js")}}></script></head>
 <body>
     @include('pages.backoffice.partials.nav')

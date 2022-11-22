@@ -34,12 +34,15 @@
                             </div>
                             <div id="my-info" class="panel-collapse collapse show" data-bs-parent="#accordion">
                                 <div class="panel-body">
-                                    <div class="billing-details shop-cart-table">
-                                        <input type="text" placeholder="Your name here...">
-                                        <input type="text" placeholder="Email address here...">
-                                        <input type="text" placeholder="Phone here...">
-                                        <input type="text" placeholder="Company neme here...">
-                                        <select class="custom-select mb-15">
+                                    <form action='store/user/info' class="billing-details shop-cart-table">
+                                        {{-- @auth
+                                            <input name='name' value="{{ Auth::user()->name}}" type="text" placeholder="Your name here...">
+
+                                        @endauth --}}
+                                        <input name='email' type="text" placeholder="Email address here...">
+                                        <input name='phone' type="text" placeholder="Phone here...">
+                                        <input name='company' type="text" placeholder="Company neme here...">
+                                        <select name='country' class="custom-select mb-15">
                                             <option>Contry</option>
                                             <option>Bangladesh</option>
                                             <option>United States</option>
@@ -47,7 +50,7 @@
                                             <option>Australia</option>
                                             <option>Canada</option>
                                         </select>
-                                        <select class="custom-select mb-15">
+                                        <select name='state' class="custom-select mb-15">
                                             <option>State</option>
                                             <option>Dhaka</option>
                                             <option>New York</option>
@@ -55,7 +58,7 @@
                                             <option>Melbourne</option>
                                             <option>Ottawa</option>
                                         </select>
-                                        <select class="custom-select mb-15">
+                                        <select name='city' class="custom-select mb-15">
                                             <option>Town / City</option>
                                             <option>Dhaka</option>
                                             <option>New York</option>
@@ -63,8 +66,8 @@
                                             <option>Melbourne</option>
                                             <option>Ottawa</option>
                                         </select>
-                                        <textarea placeholder="Your address here..." class="custom-textarea"></textarea>
-                                    </div>
+                                        <textarea name='adress' placeholder="Your address here..." class="custom-textarea"></textarea>
+                                    </form>
                                 </div>
                             </div>
                         </div>

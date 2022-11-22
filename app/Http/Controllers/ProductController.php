@@ -36,6 +36,7 @@ class ProductController extends Controller
         $product->size = $request->size;
         $product->image = $request->file('image')->hashName();
         $product->categorie_id = $request->categories_id;
+        $product->isFavorite = 0;
         // have to do the images for the products
         // $image_input = $request->file('image');
         // $filename    = $image_input->getClientOriginalName();
@@ -67,6 +68,12 @@ class ProductController extends Controller
         $product->desc = $request->desc;
         $product->price = $request->price;
         $product->size = $request->size;
+        if($request->isFavorite == '1'){
+            Product::query()->update(['isFavorite' => 0]);
+            $product->isFavorite = 1;
+        }else{
+            $product->isFavorite = 0;
+        }
         
         $product->categorie_id = $request->categories_id;
 
@@ -76,7 +83,7 @@ class ProductController extends Controller
 
         $product->image = $request->file('image')->hashName();
         $product->save();
-        return redirect()->back();
+        return redirect()->back()->with('success','Produit modifié');;
 
     }
 

@@ -15,6 +15,16 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-   
+        DB::table('products')->insert([
+            [
+                'title' => 'prod 1',
+                'desc' => 'ceci nest pas un meuble',
+                'price' => '100',
+                'size' => 'M',
+                'image' => '1.jpg',
+                'isFavorite' => 0,
+                'categorie_id' => 1
+            ],
+        ]);
     }
 }

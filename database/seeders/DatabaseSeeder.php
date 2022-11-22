@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\HomeCarousel;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
+            CategorieSeeder::class,
             ProductSeeder::class,
-            CategorieSeeder::class
+            HomeCarouselSeeder::class
         ]);
     }
 }

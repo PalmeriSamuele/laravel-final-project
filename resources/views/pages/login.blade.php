@@ -4,7 +4,7 @@
 <title>Login / Registration || Hurst</title>
 
 @section('content')
-	@include('partials.login')
+	@include('partials.loginregister')
 	@include('partials.footer')
 @endsection
 		

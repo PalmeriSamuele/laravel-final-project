@@ -49,6 +49,7 @@
 			@yield('content')
 			
 		</div>
+		
 
 		<!-- all js here -->
 		<!-- jquery latest version -->

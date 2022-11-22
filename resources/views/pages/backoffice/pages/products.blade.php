@@ -6,12 +6,14 @@
         <!-- Single-product start -->
         <div class="single-product col-2 p-2">
             <div class="product-img">
-                {{-- <span class="pro-label new-label">new</span> --}}
-                <a href="single-product.html"><img src={{asset('assets/img/product/'. $product->image)}} alt="" /></a>
-                <div class="product-action clearfix">
-                    <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>										
-                    <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                </div>
+                @if ($product->isFavorite)
+                    <div class="pro-label new-label">
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                @endif
+            
+                <img src={{asset('assets/img/product/'. $product->image)}} alt="" />
+         
             </div>
             <div class="product-info clearfix">
                 <div class="fix">
@@ -33,6 +35,7 @@
           
         </div>
         <!-- Single-product end -->
+
     @endforeach
     </div>
 @endsection

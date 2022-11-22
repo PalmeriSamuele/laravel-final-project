@@ -1,9 +1,13 @@
 <?php
 
+use App\Models\Product;
+use App\Models\Categorie;
+use App\Models\HomeCarousel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Product;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeCarouselController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +23,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $sliders = Product::inRandomOrder()->limit(5)->get();
     $new = Product::latest()->first();
-    return view('pages.home',compact('sliders','new'));
-});
+    $carousels = HomeCarousel::all();
+    $favorite = Product::where('isFavorite',1)->first();
+    return view('pages.home',compact('sliders','new','carousels','favorite'));
+})->name('home');
+
 Route::get('/about', function () {
     return view('pages.about');
 });
@@ -36,8 +43,8 @@ Route::get('/checkout', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 });
-Route::get('/my-contact', function () {
-    return view('pages.my-contact');
+Route::get('/my-account', function () {
+    return view('pages.my-account');
 });
 Route::get('/order', function () {
     return view('pages.order');
@@ -47,8 +54,10 @@ Route::get('/order', function () {
 
 
 Route::get('/shop-list', function () {
-    $products = Product::all();
-    return view('pages.shop-list',compact('products'));
+    $products = DB::table('products')->paginate(3);
+
+    $category = Categorie::all();
+    return view('pages.shop-list',compact('products','category'));
 });
 
 
@@ -79,7 +88,8 @@ Route::get('/products',[ProductController::class,'index']);
 Route::delete('/delete/product/{id}',[ProductController::class,'destroy']);
 
 Route::get('/backoffice', function () {
-    return view('pages.backoffice.pages.backoffice');
+    $carousels = HomeCarousel::all();
+    return view('pages.backoffice.pages.backoffice',compact('carousels'));
 });
 
 Route::get('/create/product',[ProductController::class,'create']);
@@ -87,7 +97,8 @@ Route::post('/store/product',[ProductController::class,'store']);
 Route::get('/edit/product/{id}',[ProductController::class,'edit']);
 Route::put('/update/product/{id}',[ProductController::class,'update']);
 
-
+Route::post('/store/caroussel-item',[HomeCarouselController::class,'store']);
+Route::delete('/delete/carousel-item/{id}',[HomeCarouselController::class,'destroy']);
 
 
 Route::get('/dashboard', function () {
