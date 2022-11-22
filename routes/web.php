@@ -55,12 +55,20 @@ Route::get('/order', function () {
 
 Route::get('/shop-list', function () {
     $products = DB::table('products')->paginate(3);
-
     $category = Categorie::all();
     return view('pages.shop-list',compact('products','category'));
 });
 
-
+Route::get('/shop-list/category/{id}',function($id){
+    $products = DB::table('products')->where('categorie_id',$id)->paginate(3);
+    $category = Categorie::all();
+    return view('pages.shop-list',compact('products','category'));
+});
+Route::get('/shop-list/size/{name}',function($name){
+    $products = DB::table('products')->where('size',$name)->paginate(3);
+    $category = Categorie::all();
+    return view('pages.shop-list',compact('products','category'));
+});
 
 Route::get('/shop-sidebar', function () {
     return view('pages.shop-sidebar');
@@ -83,6 +91,8 @@ Route::get('/blog-sidebar', function () {
 Route::get('/wishlist', function () {
     return view('pages.wishlist');
 });
+
+
 // ------- BACKOFFICE ------
 Route::get('/products',[ProductController::class,'index']);
 Route::delete('/delete/product/{id}',[ProductController::class,'destroy']);

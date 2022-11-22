@@ -41,7 +41,7 @@
                     </div>
                     <div id="cat-treeview"  class="widget-info product-cat boxscrol2 d-flex flex-column">
                         @foreach ($category as $cat )
-                            <a href="">{{$cat->name}}</a>
+                            <a href="/shop-list/category/{{$cat->id}}" >{{$cat->name}}</a>
                         @endforeach
                     </div>
                 </aside>
@@ -53,11 +53,11 @@
                     </div>
                     <div class="widget-info size-filter clearfix">
                         <ul>
-                            <li><a href="#">M</a></li>
-                            <li><a class="active" href="#">S</a></li>
-                            <li><a href="#">L</a></li>
-                            <li><a href="#">SL</a></li>
-                            <li><a href="#">XL</a></li>
+                            <li><a href="/shop-list/size/XS">XS</a></li>
+                            <li><a href="/shop-list/size/S">S</a></li>
+                            <li><a href="/shop-list/size/M">M</a></li>
+                            <li><a href="/shop-list/size/L">L</a></li>
+                            <li><a href="/shop-list/size/XL">XL</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -77,6 +77,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="grid-view">							
                             <div class="row">
+                                {{-- @dd($products->groupBy('categorie_id')); --}}
                                 @foreach ($products as $product )
                                     <!-- Single-product start -->
                                     <div class="col-lg-4 col-md-6">
