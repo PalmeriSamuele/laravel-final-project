@@ -12,7 +12,8 @@ class ProductController extends Controller
 {
     public function index(){
         $products = Product::all();
-        return view('pages.backoffice.pages.products',compact('products'));
+        $categories = Categorie::all();
+        return view('pages.backoffice.pages.products',compact('products','categories'));
     }
 
     public function create(){

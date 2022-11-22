@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeCarouselController;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,6 +69,19 @@ Route::get('/shop-list/size/{name}',function($name){
     $category = Categorie::all();
     return view('pages.shop-list',compact('products','category'));
 });
+Route::get('/shop-list/search',function(Request $request){
+    $products = DB::table('products')->where('title','like','%' . $request->search_text . '%')->paginate(3);
+    $category = Categorie::all();
+    return view('pages.shop-list',compact('products','category'));
+});
+
+Route::get('/backoffice/category/{id}',function($id){
+    $products = DB::table('products')->where('categorie_id',$id)->get();
+    $categories = Categorie::all();
+    return view('pages.backoffice.pages.products',compact('products','categories'));
+});
+
+
 
 Route::get('/shop-sidebar', function () {
     return view('pages.shop-sidebar');

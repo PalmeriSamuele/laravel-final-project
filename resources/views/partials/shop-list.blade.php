@@ -26,8 +26,8 @@
             <div class="col-lg-3 order-2 order-lg-1">
                 <!-- Widget-Search start -->
                 <aside class="widget widget-search mb-30">
-                    <form action="#">
-                        <input type="text" placeholder="Search here..." />
+                    <form action="/shop-list/search">
+                        <input name='search_text' type="text" placeholder="Search here..." />
                         <button type="submit">
                             <i class="zmdi zmdi-search"></i>
                         </button>

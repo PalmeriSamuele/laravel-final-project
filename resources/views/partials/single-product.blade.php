@@ -62,10 +62,10 @@
                     <!-- Single-pro-slider Big-photo end -->								
                     <div class="product-info">
                         <div class="fix">
-                            <h4 class="post-title floatleft">dummy Product name</h4>
+                            <h4 class="post-title floatleft">{{$product->title}}</h4>
                         </div>
                         <div class="fix mb-20">
-                            <span class="pro-price">$ 56.20</span>
+                            <span class="pro-price">$ {{$product->price}}</span>
                         </div>
                         <div class="product-description">
                             <p>There are many variations of passages of Lorem Ipsum available, but the majority have be suffered alteration in some form, by injected humou or randomised words which donot look even slightly believable. If you are going to use a passage of Lorem Ipsum. </p>
@@ -74,13 +74,13 @@
                         <div class="size-filter single-pro-size mb-35 clearfix">
                             <ul>
                                 <li><span class="color-title text-capitalize">size</span></li>
-                                <li><a href="#">M</a></li>
+                                <li><a href="#">{{$product->size}}</a></li>
                             </ul>
                         </div>
                         <!-- Size end -->
                         <div class="clearfix">
                             <div class="cart-plus-minus">
-                                <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
+                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
                             </div>
                             <div class="product-action clearfix">
                                 <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
@@ -142,7 +142,7 @@
                                     <ul class="product-comments clearfix">
                                         <li class="mb-30">
                                             <div class="pro-reviewer">
-                                                <img src={{asset("assets/img/reviewer/1.jpg")}} alt="" />
+                                                <img src={{asset("assets/img/reviewerproduct/1.jpg")}} alt="" />
                                             </div>
                                             <div class="pro-reviewer-comment">
                                                 <div class="fix">
