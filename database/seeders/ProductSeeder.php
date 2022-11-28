@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
                 'price' => '100',
                 'size' => 'M',
                 'image' => '1.jpg',
-                'isFavorite' => 0,
+                'isFavorite' => 1,
                 'categorie_id' => 1
             ],
         ]);

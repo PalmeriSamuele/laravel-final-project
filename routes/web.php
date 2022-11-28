@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
 use App\Models\Product;
 use App\Models\Categorie;
 use App\Models\HomeCarousel;
@@ -8,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeCarouselController;
+use App\Http\Controllers\ReviewController;
+use App\Models\Banner;
+use App\Models\Blog;
+use App\Models\CategoryBlog;
+use App\Models\Review;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +33,33 @@ Route::get('/', function () {
     $new = Product::latest()->first();
     $carousels = HomeCarousel::all();
     $favorite = Product::where('isFavorite',1)->first();
-    return view('pages.home',compact('sliders','new','carousels','favorite'));
+    $blogs = Blog::latest()->limit(2)->get();
+    // dd(explode('-',$blogs[0]->created_at->toDateString()));
+    return view('pages.home',compact('sliders','new','carousels','favorite','blogs'));
 })->name('home');
 
 Route::get('/about', function () {
-    return view('pages.about');
+    $banner = Banner::all()->where('section','about')->first();
+    return view('pages.about',compact('banner'));
 });
+
+
+
 Route::get('/blog', function () {
-    return view('pages.blog');
+    $blogs = Blog::paginate(3);
+    $banner = Banner::all()->where('section','blog')->first();
+    $categories = CategoryBlog::all();
+    return view('pages.blog',compact('banner','blogs','categories'));
 });
+Route::get('/blog/category/{id}', function ($id) {
+    $blogs = Blog::where('category_blogs_id',$id)->paginate(3);
+    $banner = Banner::all()->where('section','blog')->first();
+    $categories = CategoryBlog::all();
+    return view('pages.blog',compact('banner','blogs','categories'));
+});
+
+
+
 Route::get('/cart', function () {
     return view('pages.cart');
 });
@@ -41,7 +67,8 @@ Route::get('/checkout', function () {
     return view('pages.checkout');
 });
 Route::get('/contact', function () {
-    return view('pages.contact');
+    $banner = Banner::all()->where('section','contact')->first();
+    return view('pages.contact',compact('banner'));
 });
 Route::get('/my-account', function () {
     return view('pages.my-account');
@@ -56,7 +83,8 @@ Route::get('/order', function () {
 Route::get('/shop-list', function () {
     $products = DB::table('products')->paginate(3);
     $category = Categorie::all();
-    return view('pages.shop-list',compact('products','category'));
+    $banner = Banner::all()->where('section','lookbook')->first();
+    return view('pages.shop-list',compact('products','category','banner'));
 });
 
 Route::get('/shop-list/category/{id}',function($id){
@@ -83,11 +111,14 @@ Route::get('/backoffice/category/{id}',function($id){
 
 
 
-Route::get('/shop-sidebar', function () {
-    return view('pages.shop-sidebar');
-});
+// Route::get('/shop-sidebar', function () {
+//     return view('pages.shop-sidebar');
+// });
 Route::get('/shop', function () {
-    return view('pages.shop');
+    $products = Product::paginate(5);
+    $categories = Categorie::all();
+    $banner = Banner::all()->where('section','shop')->first();
+    return view('pages.shop',compact('products','categories','banner'));
 });
 
 Route::get('/product/{id}',[ProductController::class,'show']);
@@ -95,19 +126,27 @@ Route::get('/product/{id}',[ProductController::class,'show']);
 Route::get('/product-sidebar', function () {
     return view('pages.single-product-sidebar');
 });
-Route::get('/single-blog', function () {
-    return view('pages.single-blog');
+Route::get('/blog/{id}', function ($id) {
+    $blog = Blog::find($id);
+    $reviews = Review::where('blog_id',$id)->get();
+    return view('pages.single-blog',compact('blog','reviews'));
 });
-Route::get('/blog-sidebar', function () {
-    return view('pages.single-blog-sidebar');
-});
+
+Route::post('/blog/store/review/{id}',[ReviewController::class,'store']);
+
+// Route::get('/blog-sidebar', function () {
+//     return view('pages.single-blog-sidebar');
+// });
 Route::get('/wishlist', function () {
     return view('pages.wishlist');
 });
 
+Route::post('/product/cart/store/{id}',[CartController::class,'store']);
+Route::delete('/product/cart/delete/{id}',[CartController::class,'destroy']);
+
 
 // ------- BACKOFFICE ------
-Route::get('/products',[ProductController::class,'index']);
+Route::get('/backoffice/products',[ProductController::class,'index'])->name('backoffice-products');
 Route::delete('/delete/product/{id}',[ProductController::class,'destroy']);
 
 Route::get('/backoffice', function () {
@@ -124,6 +163,21 @@ Route::post('/store/caroussel-item',[HomeCarouselController::class,'store']);
 Route::delete('/delete/carousel-item/{id}',[HomeCarouselController::class,'destroy']);
 
 
+Route::put('/backoffice/update/banner/{id}',[BannerController::class,'update']);
+
+Route::get('/backoffice/banners',function(){
+    $banners = Banner::all();
+    return view('pages.backoffice.pages.banners',compact('banners'));
+})->name('banners');
+
+Route::get('/backoffice/create/blog',[BlogController::class,'create'])->name('create-blog');
+Route::get('/backoffice/blogs',[BlogController::class,'index'])->name('backoffice-blogs');
+Route::get('/backoffice/edit/blog/{id}',[BlogController::class,'edit'])->name('edit-blog');
+Route::post('/store/blog',[BlogController::class,'store']);
+Route::delete('/delete/blog/{id}',[BlogController::class,'destroy']);
+Route::put('/update/blog/{id}',[BlogController::class,'update']);
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -133,5 +187,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
 
 require __DIR__.'/auth.php';

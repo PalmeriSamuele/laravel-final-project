@@ -1,7 +1,7 @@
 
 
 <!-- HEADING-BANNER START -->
-<div class="heading-banner-area overlay-bg">
+<div class=" overlay-bg" style="background: rgba(0, 0, 0, 0) url('assets/img/bg/{{$banner->image}}') no-repeat scroll center center / cover ;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">

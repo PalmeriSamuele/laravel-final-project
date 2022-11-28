@@ -5,7 +5,7 @@
             <h4 class="title-1 title-border text-uppercase mb-30">new customers</h4>
             <p class="text-gray">If you have an account with us, Please login!</p>
             <input type="text" placeholder="Your name here..." name="name">
-            <input type="email" placeholder="Email address here..." name="email">
+            <input type="text" placeholder="Email address here..." name="email">
             <input type="password" placeholder="password" name="password">
             <input type="password" placeholder="Confirm password" name="password_confirmation">
             <p class="mb-0">

@@ -14,38 +14,75 @@
                             <li>
                                 <a class="cart-icon" href="#">
                                     <i class="zmdi zmdi-shopping-cart"></i>
-                                    <span>3</span>
+                                    @auth
+                                        <span>{{Auth::user()->products->count()}}</span>
+                                    @endauth
+                                    
                                 </a>
                                 <div class="mini-cart-brief text-left">
                                     <div class="cart-items">
-                                        <p class="mb-0">You have <span>03 items</span> in your shopping bag</p>
+                                        @auth
+                                            <p class="mb-0">You have <span>{{Auth::user()->products->count()}} items</span> in your shopping bag</p>
+
+                                        @endauth
                                     </div>
+                                    <?php
+                                        $sum = 0;
+                                        $quantity = 1;
+                                        
+    
+                                                       
+                                    ?>
                                     <div class="all-cart-product clearfix">
-                                        <div class="single-cart clearfix">
-                                            <div class="cart-photo">
-                                                <a href="#"><img src={{asset("assets/img/cart/1.jpg")}} alt="" /></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="#">dummy product name</a></h5>
-                                                <p class="mb-0">Price : $ 100.00</p>
-                                                <p class="mb-0">Qty : 02 </p>
-                                                <span class="cart-delete"><a href="#"><i class="zmdi zmdi-close"></i></a></span>
-                                            </div>
-                                        </div>
-                                        <div class="single-cart clearfix">
-                                            <div class="cart-photo">
-                                                <a href="#"><img src="img/cart/2.jpg" alt="" /></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="#">dummy product name</a></h5>
-                                                <p class="mb-0">Price : $ 300.00</p>
-                                                <p class="mb-0">Qty : 01 </p>
-                                                <span class="cart-delete"><a href="#"><i class="zmdi zmdi-close"></i></a></span>
-                                            </div>
-                                        </div>
+                                        @auth
+                                            <?php $cart = Auth::user()->products->sortBy('id'); ?>
+                                            @for ($i = 0; $i < $cart->count(); $i++  )
+                                
+                                                <?php
+                                                    
+                                                    $product = $cart[$i];
+
+                                                    echo $i;
+                                                    $current_id = $product->id;
+                                                    $sum+=$product->price;
+                                                    ?>
+                                                @if ($i+1 != $cart->count() && $current_id == $cart[$i+1]->id )
+                                                    <?php 
+                                                        $quantity += 1; 
+                                                    ?>
+                                                @else
+                                                    <?php 
+                                                        
+                                                        echo 'prev '. $current_id;
+                                                        $current_id = $product->id;
+                                                        
+                                                    ?>
+                                                    <div class="single-cart clearfix">
+                                                        <div class="cart-photo">
+                                                            <a href="#"><img src={{asset("assets/img/product/". $product->image)}} alt="" /></a>
+                                                        </div>
+                                                        <div class="cart-info">
+                                                            <h5><a href="#">{{$product->title}}</a></h5>
+                                                            <p class="mb-0">Price : $ {{$product->price}}</p>
+                                                            <p class="mb-0">Qty : {{$quantity}} </p>
+                                                            <form action="/product/cart/delete/{{$product->id}}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <span class="cart-delete"><button type="submit"><i class="zmdi zmdi-close"></i></button></span>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <?php $quantity = 1; ?>
+                                                @endif
+            
+                                            @endfor
+                                        @endauth
+
+             
+
                                     </div>
                                     <div class="cart-totals">
-                                        <h5 class="mb-0">Total <span class="floatright">$500.00</span></h5>
+                                        <h5 class="mb-0">Total :<span class="floatright">  {{$sum}}$</span></h5>
                                     </div>
                                     <div class="cart-bottom  clearfix">
                                         <a href="/cart" class="button-one floatleft text-uppercase" data-text="View cart">View cart</a>
@@ -118,10 +155,10 @@
                     </div>
                 </li>
                 
-                <li><a href="/shop-sidebar">accesories</a></li>
+               
                 <li><a href="/shop-list">lookbook</a></li>
                 <li><a href="/blog">blog</a></li>
-                <li><a href="#">pages</a>
+                {{-- <li><a href="#">pages</a>
                     <div class="sub-menu menu-scroll">
                         <ul>
                             <li class="menu-title">Page's</li>
@@ -146,7 +183,7 @@
                             <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <li><a href="/about">about us</a></li>
                 <li><a href="/contact">contact</a></li>
             </ul>

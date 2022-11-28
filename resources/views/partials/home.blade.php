@@ -1,4 +1,7 @@
-
+<?php 
+    use Carbon\Carbon;
+    use Illuminate\Support\Str;
+?>
 <!-- Mobile-header-top Start -->
 <div class="mobile-header-top d-block d-md-none">
     <div class="container">
@@ -10,7 +13,7 @@
                         <div class="table-cell">
                             <ul>
                                 <li><a class="search-open" href="#"><i class="zmdi zmdi-search"></i></a></li>
-                                <li><a href="login.html"><i class="zmdi zmdi-lock"></i></a></li>
+                                <li><a href="/login"><i class="zmdi zmdi-lock"></i></a></li>
                                 <li><a href="my-account.html"><i class="zmdi zmdi-account"></i></a></li>
                                 <li><a href="wishlist.html"><i class="zmdi zmdi-favorite"></i></a></li>
                             </ul>
@@ -54,7 +57,11 @@
                     <h2 class="banner-title"><a href="#">{{$new->title}}</a></h2>
                     <p class="mb-0">Furniture</p>
                 </div>
-                <a href="#" class="button-one font-16px" data-text="Buy now">Buy now</a>
+                <form action="/product/cart/store/{{$new->id}}">
+                    @csrf
+                    <input class="button-one font-16px" type="submit" value="Buy now">
+                </form>
+                <a href="/product/cart/store/{{$new->id}}" class="button-one font-16px" data-text="Buy now">Buy now</a>
             </div>
             <div class="single-banner banner-2">
                 <a class="banner-thumb" href="#"><img src={{'assets/img/product/' . $favorite->image}} alt="" /></a>
@@ -158,18 +165,18 @@
                     <li><a class="search-open" href="#" title="Search"><i class="zmdi zmdi-search"></i></a></li>
                     <li><a href="#" title="Login"><i class="zmdi zmdi-lock"></i></a>
                         <div class="customer-login text-left">
-                            <form action="#">
+                            <form action="{{route('login')}}">
                                 <h4 class="title-1 title-border text-uppercase mb-30">Registered customers</h4>
                                 <p class="text-gray">If you have an account with us, Please login!</p>
                                 <input type="text" name="email" placeholder="Email here..." />
-                                <input type="password" placeholder="Password" />
+                                <input type="password" placeholder="Password" name='password'/>
                                 <p><a class="text-gray" href="#">Forget your password?</a></p>
                                 <button class="button-one submit-button mt-15" data-text="login" type="submit">login</button>
                             </form>
                         </div>
                     </li>
-                    <li><a href="my-account.html" title="My-Account"><i class="zmdi zmdi-account"></i></a></li>
-                    <li><a href="wishlist.html" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a></li>
+                    <li><a href="/my-account" title="My-Account"><i class="zmdi zmdi-account"></i></a></li>
+                    <li><a href="/wishlist" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -217,8 +224,11 @@
                                 <span class="pro-label new-label">new</span>
                                 <a href="single-product.html"><img src={{asset('assets/img/product/'. $slide->image)}} alt="" /></a>
                                 <div class="product-action clearfix">
-                                    <a href="" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>										
-                                    <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                    <a href="" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>		
+                                    <form action="/product/cart/store/{{$slide->id}}" method="post">
+                                        @csrf
+                                        <button type="submit"  data-bs-toggle="tooltip" data-placement="top" title="Add To Cart">buy</button>
+                                    </form>								
                                 </div>
                             </div>
                             <div class="product-info clearfix">
@@ -257,68 +267,47 @@
         </div>
         <!-- Section-title end -->
         <div class="row">
-            <!-- Single-blog start -->
-            <div class="col-lg-6">
-                <div class="single-blog mt-30">
-                    <div class="row">
-                        <div class="col-xl-6 col-md-7">
-                            <div class="blog-info">
-                                <div class="post-meta fix">
-                                    <div class="post-date floatleft"><span class="text-dark-red">30</span></div>
-                                    <div class="post-year floatleft">
-                                        <p class="text-uppercase text-dark-red mb-0">June, 2021</p>
-                                        <h4 class="post-title"><a href="#" tabindex="0">Farniture drawing 2021</a></h4>
+            @foreach ($blogs as $blog )
+                <!-- Single-blog start -->
+                <div class="col-lg-6">
+                    <div class="single-blog mt-30">
+                        <div class="row">
+                            <div class="col-xl-6 col-md-7">
+                                <div class="blog-info">
+                                    <div class="post-meta fix">
+                                        <?php 
+                                            
+                                            $date = $blog->created_at->format('d');
+                                            $monthName= $blog->created_at->format('F');
+                                            $year = $blog->created_at->format('Y');
+                            
+                                        ?>
+                                        <div class="post-date floatleft"><span class="text-dark-red">{{$date}}</span></div>
+                                        <div class="post-year floatleft">
+                                
+                                            <p class="text-uppercase text-dark-red mb-0">{{$monthName}}, {{$year}}</p>
+                                            <h4 class="post-title"><a href="#" tabindex="0">{{$blog->title}}</a></h4>
+                                        </div>
                                     </div>
+                                    <div class="like-share fix">
+                                        <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
+                                        <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
+                                        <a href="#"><i class="zmdi zmdi-share"></i><span>29 Share</span></a>
+                                    </div>
+                                    <p>{{ Str::limit($blog->text,100,'...') }}</p>
+                                    <a href="#" class="button-2 text-dark-red">Read more...</a>
                                 </div>
-                                <div class="like-share fix">
-                                    <a href="#"><i class="zmdi zmdi-favorite"></i><span>89 Like</span></a>
-                                    <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
-                                    <a href="#"><i class="zmdi zmdi-share"></i><span>29 Share</span></a>
-                                </div>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered If you are going to use a passage  Lorem Ipsum, you alteration in some form.</p>
-                                <a href="#" class="button-2 text-dark-red">Read more...</a>
                             </div>
-                        </div>
-                        <div class="col-xl-6 col-md-5">
-                            <div class="blog-photo">
-                                <a href="#"><img src="img/blog/1.jpg" alt="" /></a>
+                            <div class="col-xl-6 col-md-5">
+                                <div class="blog-photo">
+                                    <a href="#"><img src={{asset("assets/img/blog/" . $blog->image)}} alt="" /></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Single-blog end -->
-            <!-- Single-blog start -->
-            <div class="col-lg-6">
-                <div class="single-blog mt-30">
-                    <div class="row">
-                        <div class="col-xl-6 col-md-7">
-                            <div class="blog-info">
-                                <div class="post-meta fix">
-                                    <div class="post-date floatleft"><span class="text-dark-red">30</span></div>
-                                    <div class="post-year floatleft">
-                                        <p class="text-uppercase text-dark-red mb-0">June, 2021</p>
-                                        <h4 class="post-title"><a href="#" tabindex="0">Farniture drawing 2021</a></h4>
-                                    </div>
-                                </div>
-                                <div class="like-share fix">
-                                    <a href="#"><i class="zmdi zmdi-favorite"></i><span>89 Like</span></a>
-                                    <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
-                                    <a href="#"><i class="zmdi zmdi-share"></i><span>29 Share</span></a>
-                                </div>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered If you are going to use a passage  Lorem Ipsum, you alteration in some form.</p>
-                                <a href="#" class="button-2 text-dark-red">Read more...</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-md-5">
-                            <div class="blog-photo">
-                                <a href="#"><img src="img/blog/2.jpg" alt="" /></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single-blog end -->
+                <!-- Single-blog end -->
+            @endforeach
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@
     <div class="">
         <div class=" bg-secondary p-3">
             <div class="d-flex  gap-3 justify-content-center ">
-                <a class='text-light' href="/products">Tous</a>
+                <a class='text-light' href="{{ route('backoffice-products')}}">Tous</a>
 
                 @foreach ($categories as $category )
                     <a class='text-light' href="/backoffice/category/{{$category->id}}">{{$category->name}}</a>

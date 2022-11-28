@@ -89,9 +89,9 @@ class ProductController extends Controller
     }
 
     public function destroy($id){
-
-        unlink(public_path('assets/img/product/' . Product::find($id)->image));
         $product = Product::find($id);
+        unlink(public_path('assets/img/product/' . $product->image));
+       
         $product->delete();
         
         return redirect()->back()->with('success','Produit supprimé');

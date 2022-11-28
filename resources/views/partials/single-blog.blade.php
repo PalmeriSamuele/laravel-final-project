@@ -1,3 +1,7 @@
+<?php 
+    use Illuminate\Support\Str;
+?>
+
 <!-- HEADING-BANNER START -->
 <div class="heading-banner-area overlay-bg">
     <div class="container">
@@ -24,25 +28,31 @@
     <div class="container">	
         <div class="blog">
             <div class="row">
+                <?php 
+                                                    
+                    $date = $blog->created_at->format('d');
+                    $monthName= $blog->created_at->format('F');
+                    $year = $blog->created_at->format('Y');
+
+                ?>
                 <!-- Single-blog start -->
                 <div class="col-lg-12">
                     <div class="single-blog mb-30">
                         <div class="blog-photo">
-                            <a href="#"><img src="img/blog/10.jpg" alt="" /></a>
+                            <a href="#"><img src={{ asset('assets/img/blog/single/' . $blog->image)}} alt="" /></a>
                             <div class="like-share fix">
-                                <a href="#"><i class="zmdi zmdi-account"></i><span>Thomas</span></a>
-                                <a href="#"><i class="zmdi zmdi-favorite"></i><span>89 Like</span></a>
+                                <a href="#"><i class="zmdi zmdi-account"></i><span>{{$blog->user->name}}</span></a>
+                                <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
                                 <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
                             </div>
-                            <div class="post-date post-date-2">
-                                <span class="text-dark-red">30</span>
-                                <span class="text-dark-red text-uppercase">June</span>
+                            <div class="post-date post-date-2 w-25">
+                                <span class="text-dark-red">{{$date}}</span>
+                                <span class="text-dark-red text-uppercase">{{$monthName}}</span>
                             </div>
                         </div>
                         <div class="blog-info blog-details-info">
-                            <h4 class="post-title post-title-2"><a href="#">Farniture drawing 2021</a></h4>
-                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrink ing from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour. On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will</p>
-                            <p>which is the same as saying through shrink ing from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour.On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrink ing from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour.</p>
+                            <h4 class="post-title post-title-2"><a href="#">{{$blog->title}}</a></h4>
+                            <p>{{$blog->text}}</p>
                             <div class="post-share-tag clearfix mt-40">
                                 <div class="post-share floatleft">
                                     <span class="text-uppercase"><strong>Share</strong></span>
@@ -64,60 +74,45 @@
                             <div class="pro-reviews mt-60">
                                 <div class="customer-review mb-60">
                                     <h3 class="tab-title title-border mb-30">Customer comments</h3>
-                                    <ul class="product-comments clearfix">
-                                        <li class="mb-30">
-                                            <div class="pro-reviewer">
-                                                <img src="img/reviewer/1.jpg" alt="" />
-                                            </div>
-                                            <div class="pro-reviewer-comment">
-                                                <div class="fix">
-                                                    <div class="floatleft mbl-center">
-                                                        <h5 class="text-uppercase mb-0"><strong>Gerald Barnes</strong></h5>
-                                                        <p class="reply-date">27 Jun, 2021 at 2:30pm</p>
-                                                    </div>
-                                                    <div class="comment-reply floatright">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </div>
+                                    <div>
+                                        @foreach ($reviews as $review )
+                                            <div>
+                                                <div class="pro-reviewer">
+                                                    <img src={{ asset('assets/img/user/' . $review->user->image )}} alt="" />
                                                 </div>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            </div>
-                                        </li>
-                                        <li class="threaded-comments">
-                                            <div class="pro-reviewer">
-                                                <img src="img/reviewer/1.jpg" alt="" />
-                                            </div>
-                                            <div class="pro-reviewer-comment">
-                                                <div class="fix">
-                                                    <div class="floatleft mbl-center">
-                                                        <h5 class="text-uppercase mb-0"><strong>Gerald Barnes</strong></h5>
-                                                        <p class="reply-date">27 Jun, 2021 at 2:30pm</p>
+                                                <div class="pro-reviewer-comment">
+                                                    <div class="fix">
+                                                        <div class="floatleft mbl-center">
+                                                            <h5 class="text-uppercase mb-0"><strong>{{$review->user->name}}</strong></h5>
+                                                            <p class="reply-date">{{$review->created_at}}</p>
+                                                        </div>
+                                                        <div class="comment-reply floatright">
+                                                            <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
+                                                            <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div class="comment-reply floatright">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </div>
+                                                    <p class="mb-0">{{$review->content}}</p>
                                                 </div>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
                                             </div>
-                                        </li>
-                                    </ul>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="leave-review">
-                                    <h3 class="tab-title title-border mb-30">Leave your reviw</h3>
+                                    <h3 class="tab-title title-border mb-30">Leave your review</h3>
                                     <div class="reply-box">
-                                        <form action="#">
+                                        <form action="/blog/store/review/{{$blog->id}}" method="post">
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" placeholder="Your name here..." name="name" />
+                                                    <input type="text" placeholder="Your name here..." value={{Auth::user()->name}} name="name" />
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" placeholder="Your email here..." name="email" />
+                                                    <input type="text" value={{Auth::user()->email}} placeholder="Your email here..." name="email" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <textarea class="custom-textarea" name="message" placeholder="Your review here..." ></textarea>
+                                                    <textarea class="custom-textarea" name="content" placeholder="Your review here..." ></textarea>
                                                     <button type="submit" data-text="submit review" class="button-one submit-button mt-20">submit review</button>
                                                 </div>
                                             </div>
