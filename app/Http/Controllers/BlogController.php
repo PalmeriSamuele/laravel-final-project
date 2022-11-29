@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\CategoryBlog;
+use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,8 @@ class BlogController extends Controller
             'text' => 'required|max:2000',
             'category_blogs_id' => 'required'
         ]);
-
         $blog = new Blog();
+
         $blog->title = $request->title;
         $blog->image = $request->file('image')->hashName();
         $image = Image::make($request->file('image'))->resize(320,200);
@@ -43,6 +44,26 @@ class BlogController extends Controller
         $blog->category_blogs_id = $request->category_blogs_id;
         $blog->user_id = Auth::user()->id;
         $blog->save();
+        $tags = explode(',',$request->tags);
+        foreach($tags as $tag){
+         
+            if(Tag::where('tag', $tag)->get()->count() == 0){
+                $_tag = new Tag();
+                $_tag->tag = $tag;
+                
+                $_tag->save();
+       
+                Tag::find($_tag->id)->blogs()->sync( [$blog->id]);
+           
+            }else{
+                $_tag = Tag::where('tag', $tag)->first();
+
+                Tag::find($_tag->id)->blogs()->sync( [$blog->id]);
+            }
+            
+            
+        }
+
         return redirect()->back()->with('success','Article ajouté');
     }
 

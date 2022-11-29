@@ -233,6 +233,16 @@
                             </li>
                             <li><a href="/about">about us</a></li>
                             <li><a href="/contact">contact</a></li>
+                            @auth
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                    
+                                    <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
+                                        {{ __('Log Out') }}
+                                    </button>
+                                </form>
+                            @endauth
                         </ul>
                     </nav>
                 </div>

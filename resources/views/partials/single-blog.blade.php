@@ -43,7 +43,7 @@
                             <div class="like-share fix">
                                 <a href="#"><i class="zmdi zmdi-account"></i><span>{{$blog->user->name}}</span></a>
                                 <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
-                                <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
+                                <a href="#"><i class="zmdi zmdi-comments"></i><span>{{$reviews->count()}} Comments</span></a>
                             </div>
                             <div class="post-date post-date-2 w-25">
                                 <span class="text-dark-red">{{$date}}</span>
@@ -86,9 +86,15 @@
                                                             <h5 class="text-uppercase mb-0"><strong>{{$review->user->name}}</strong></h5>
                                                             <p class="reply-date">{{$review->created_at}}</p>
                                                         </div>
-                                                        <div class="comment-reply floatright">
-                                                            <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                            <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                        <div class="comment-reply floatright d-flex gap-1">
+                                                            {{-- <a href="#"><i class="zmdi zmdi-mail-reply"></i></a> --}}
+                                                            <form action="/delete/review/{{$review->id}}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"> X </button>
+                            
+                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                     <p class="mb-0">{{$review->content}}</p>
@@ -97,6 +103,7 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                @auth
                                 <div class="leave-review">
                                     <h3 class="tab-title title-border mb-30">Leave your review</h3>
                                     <div class="reply-box">
@@ -119,6 +126,8 @@
                                         </form>
                                     </div>
                                 </div>
+                                @endauth
+                                
                             </div>										
                         </div>
                     </div>

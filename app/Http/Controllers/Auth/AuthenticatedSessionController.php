@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('pages.login');
+        return view('auth.login');
     }
 
     /**
@@ -29,12 +28,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        dd($request);
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect('/');
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
@@ -51,6 +49,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 }

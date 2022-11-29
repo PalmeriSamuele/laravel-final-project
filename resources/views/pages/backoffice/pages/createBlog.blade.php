@@ -11,6 +11,7 @@
             @endforeach
 
         </select>
+        <input type="text" name="tags" data-role="taginput" class="pt-3" placeholder="Inserer des tags">
         <textarea class='rounded' name="text" id="" cols="30" rows="10" placeholder="Inserer du texte">{{old('text')}}</textarea>
         <input  class='col-3 btn btn-success rounded' type="submit" value="ajouté">
     </form>

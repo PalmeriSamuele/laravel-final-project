@@ -13,12 +13,17 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
 
+
+
     public function category_blogs(){
         return $this->belongsTo(CategoryBlog::class);
     }
-    // public function reviews(){
-    //     return $this->belongsToMany(Review::class);
-    // }
+
+
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 
 
     

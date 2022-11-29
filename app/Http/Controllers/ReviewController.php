@@ -18,4 +18,10 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('success','Avis ajouté');
     }
+
+    public function destroy($id){
+        $review = Review::find($id);
+        $review->delete();
+        return redirect()->back()->with('success', 'Votre  commentaire a ete suprrimé');
+    }
 }

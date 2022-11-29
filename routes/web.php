@@ -87,29 +87,38 @@ Route::get('/shop-list', function () {
     return view('pages.shop-list',compact('products','category','banner'));
 });
 
+
+
 Route::get('/shop-list/category/{id}',function($id){
     $products = DB::table('products')->where('categorie_id',$id)->paginate(3);
     $category = Categorie::all();
-    return view('pages.shop-list',compact('products','category'));
+    $banner = Banner::all()->where('section','lookbook')->first();
+    return view('pages.shop-list',compact('products','category','banner'));
 });
+
+
 Route::get('/shop-list/size/{name}',function($name){
     $products = DB::table('products')->where('size',$name)->paginate(3);
     $category = Categorie::all();
-    return view('pages.shop-list',compact('products','category'));
+    $banner = Banner::all()->where('section','lookbook')->first();
+    return view('pages.shop-list',compact('products','category','banner'));
 });
 Route::get('/shop-list/search',function(Request $request){
     $products = DB::table('products')->where('title','like','%' . $request->search_text . '%')->paginate(3);
     $category = Categorie::all();
-    return view('pages.shop-list',compact('products','category'));
+    $banner = Banner::all()->where('section','lookbook')->first();
+    return view('pages.shop-list',compact('products','category','banner'));
 });
 
 Route::get('/backoffice/category/{id}',function($id){
-    $products = DB::table('products')->where('categorie_id',$id)->get();
+    $products = DB::table('products')->where('categorie_id',$id)->paginate(3);
     $categories = Categorie::all();
-    return view('pages.backoffice.pages.products',compact('products','categories'));
+    return view('pages.backoffice.pages.products', compact('products','categories'));
 });
 
-
+Route::get('/connection ', function(){
+    return view('pages.login');
+});
 
 // Route::get('/shop-sidebar', function () {
 //     return view('pages.shop-sidebar');
@@ -132,7 +141,10 @@ Route::get('/blog/{id}', function ($id) {
     return view('pages.single-blog',compact('blog','reviews'));
 });
 
+
 Route::post('/blog/store/review/{id}',[ReviewController::class,'store']);
+Route::delete('/delete/review/{id}',[ReviewController::class,'destroy']);
+
 
 // Route::get('/blog-sidebar', function () {
 //     return view('pages.single-blog-sidebar');

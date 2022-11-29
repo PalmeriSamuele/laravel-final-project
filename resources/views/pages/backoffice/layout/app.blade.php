@@ -38,9 +38,10 @@
     <!-- responsive css -->
     <link rel="stylesheet" href={{asset("assets/css/responsive.css")}}>
     <!-- modernizr css -->
-
+    <link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src={{asset("assets/js/vendor/modernizr-3.11.2.min.js")}}></script></head>
+
 <body>
     @include('pages.backoffice.partials.nav')
     @include('layout.flash')
@@ -75,5 +76,7 @@
 		<script src={{asset("assets/js/plugins.js")}}></script>
 		<!-- main js -->
 		<script src={{asset("assets/js/main.js")}}></script>
+
+        <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
 </body>
 </html>

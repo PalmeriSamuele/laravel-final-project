@@ -65,7 +65,7 @@ a{
   text-decoration:none;
   color: #434343;
 }
-a, *::before {
+a, *::before, button {
   transition: all 0.3s ease 0s;
   }
 a:hover {
@@ -1619,7 +1619,7 @@ input.cart-plus-minus-box {
   margin-left: 90px;
   padding-left: 30px;
 }
-.comment-reply a {
+.comment-reply a, .comment-reply button {
   background: #f6f6f6 none repeat scroll 0 0;
   color: #999;
   display: inline-block;
@@ -1630,7 +1630,7 @@ input.cart-plus-minus-box {
   text-align: center;
   width: 50px;
 }
-.comment-reply a:hover {
+.comment-reply a:hover, .comment-reply button:hover  {
   background: #C8A165 none repeat scroll 0 0;
   color: #fff;
 }
