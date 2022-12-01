@@ -19,12 +19,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('image',200)->default('profile.jpg');
             $table->string('phone',35)->nullable();
             $table->string('company',100)->nullable();
             $table->string('country',40)->nullable();
             $table->string('state',40)->nullable();
             $table->string('city',40)->nullable(); 
             $table->string('adress')->nullable(); 
+            $table->foreignId('job_id')->nullable();
+            $table->foreignId('role_id')->nullable();
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();

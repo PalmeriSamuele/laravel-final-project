@@ -106,15 +106,8 @@
 <nav>
             <ul>
                 <li><a href="/">home</a>
-                    <div class="sub-menu menu-scroll">
-                        <ul>
-                            <li class="menu-title">Page's</li>
-                            <li><a href="/">Home Version 1</a></li>
-                            <li><a href="/">Home Version 2</a></li>
-                        </ul>
-                    </div>
                 </li>
-                <li><a href="/shop">products</a>
+                {{-- <li><a href="/shop">products</a>
                     <div class="mega-menu menu-scroll">
                         <div class="table">
                             <div class="table-cell">
@@ -153,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 
                
                 <li><a href="/shop-list">lookbook</a></li>
@@ -186,6 +179,16 @@
                 </li> --}}
                 <li><a href="/about">about us</a></li>
                 <li><a href="/contact">contact</a></li>
+                @auth
+
+                <form method="POST" action="{{ route('logout') }}" class="d-flex justify-content-center">
+                    @csrf
+    
+                    <button type="submit" class="btn btn-danger rounded ">
+                        {{ __('Log Out') }}
+                    </button>
+                </form>
+                @endauth
             </ul>
         </nav>
     </div>
@@ -229,20 +232,12 @@
                                     <li><a href="/single-blog-sidebar">Single Blog Sidebar</a></li>
                                     <li><a href="/about">About Us</a></li>
                                     <li><a href="/contact">Contact</a></li>
+     
                                 </ul>
                             </li>
                             <li><a href="/about">about us</a></li>
                             <li><a href="/contact">contact</a></li>
-                            @auth
-
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                    
-                                    <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                                        {{ __('Log Out') }}
-                                    </button>
-                                </form>
-                            @endauth
+      
                         </ul>
                     </nav>
                 </div>

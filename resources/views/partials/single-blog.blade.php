@@ -65,10 +65,9 @@
                                 </div>
                                 <div class="post-share post-tag floatright">
                                     <span class="text-uppercase"><strong>tags</strong></span>
-                                    <a href="#">Chair</a>
-                                    <a href="#">Furniture</a>
-                                    <a href="#">Light</a>
-                                    <a href="#">Table</a>
+                                        @foreach ($blog->tags as $tag )
+                                            <a href="">{{$tag->tag}}</a>
+                                        @endforeach
                                 </div>
                             </div>
                             <div class="pro-reviews mt-60">

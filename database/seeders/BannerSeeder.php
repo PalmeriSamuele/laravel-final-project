@@ -36,6 +36,14 @@ class BannerSeeder extends Seeder
                 'section' => 'contact',
                 'image' => 'contact.png' 
             ],
+            [
+                'section' => 'cart',
+                'image' => 'contact.png' 
+            ],
+            [
+                'section' => 'wishlist',
+                'image' => 'contact.png' 
+            ],
         ]);
     }
 }

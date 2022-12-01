@@ -12,10 +12,12 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeCarouselController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserController;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\CategoryBlog;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,11 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     $banner = Banner::all()->where('section','about')->first();
-    return view('pages.about',compact('banner'));
+    $boss = User::where('job_id',1)->first();
+    $employee =  User::all()
+    ->where('job_id','!=',1)
+    ->random(3);
+    return view('pages.about',compact('banner','boss','employee'));
 });
 
 
@@ -61,7 +67,8 @@ Route::get('/blog/category/{id}', function ($id) {
 
 
 Route::get('/cart', function () {
-    return view('pages.cart');
+    $banner = Banner::all()->where('section','cart')->first();
+    return view('pages.cart',compact('banner'));
 });
 Route::get('/checkout', function () {
     return view('pages.checkout');
@@ -156,6 +163,8 @@ Route::get('/wishlist', function () {
 Route::post('/product/cart/store/{id}',[CartController::class,'store']);
 Route::delete('/product/cart/delete/{id}',[CartController::class,'destroy']);
 
+
+Route::put('/store/user/info',[UserController::class,'update']);
 
 // ------- BACKOFFICE ------
 Route::get('/backoffice/products',[ProductController::class,'index'])->name('backoffice-products');
