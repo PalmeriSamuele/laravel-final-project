@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeCarouselController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Models\About;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\CategoryBlog;
@@ -45,10 +47,11 @@ Route::get('/', function () {
 Route::get('/about', function () {
     $banner = Banner::all()->where('section','about')->first();
     $boss = User::where('job_id',1)->first();
+    $content =  About::first();
     $employee =  User::all()
     ->where('job_id','!=',1)
     ->random(3);
-    return view('pages.about',compact('banner','boss','employee'));
+    return view('pages.about',compact('banner','boss','employee','content'));
 });
 
 
@@ -175,7 +178,8 @@ Route::delete('/delete/product/{id}',[ProductController::class,'destroy']);
 
 Route::get('/backoffice', function () {
     $carousels = HomeCarousel::all();
-    return view('pages.backoffice.pages.backoffice',compact('carousels'));
+    $about = About::first();
+    return view('pages.backoffice.pages.backoffice',compact('carousels','about'));
 });
 
 Route::get('/backoffice/users',[UserController::class,'index'])->name('backoffice-users');
@@ -210,6 +214,10 @@ Route::get('/backoffice/edit/blog/{id}',[BlogController::class,'edit'])->name('e
 Route::post('/store/blog',[BlogController::class,'store']);
 Route::delete('/delete/blog/{id}',[BlogController::class,'destroy']);
 Route::put('/update/blog/{id}',[BlogController::class,'update']);
+
+Route::put('/backoffice/update/about',[AboutController::class,'update']);
+
+
 
 
 Route::get('/dashboard', function () {
