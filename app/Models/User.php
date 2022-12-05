@@ -47,9 +47,9 @@ class User extends Authenticatable
     }
 
     public function role(){
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class,'role_id');
     }
     public function job(){
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(Job::class,'job_id');
     }
 }

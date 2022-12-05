@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\CategoryBlog;
+use App\Models\Job;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,8 +37,9 @@ Route::get('/', function () {
     $carousels = HomeCarousel::all();
     $favorite = Product::where('isFavorite',1)->first();
     $blogs = Blog::latest()->limit(2)->get();
+    $products_footer = Product::inRandomOrder()->limit(2)->get();
     // dd(explode('-',$blogs[0]->created_at->toDateString()));
-    return view('pages.home',compact('sliders','new','carousels','favorite','blogs'));
+    return view('pages.home',compact('sliders','new','carousels','favorite','blogs','products_footer'));
 })->name('home');
 
 Route::get('/about', function () {
@@ -70,6 +72,7 @@ Route::get('/cart', function () {
     $banner = Banner::all()->where('section','cart')->first();
     return view('pages.cart',compact('banner'));
 });
+
 Route::get('/checkout', function () {
     return view('pages.checkout');
 });
@@ -175,6 +178,11 @@ Route::get('/backoffice', function () {
     return view('pages.backoffice.pages.backoffice',compact('carousels'));
 });
 
+Route::get('/backoffice/users',[UserController::class,'index'])->name('backoffice-users');
+Route::put('/update/role/{id}',[UserController::class,'updateRole']);
+Route::put('/update/job/{id}',[UserController::class,'updateJob']);
+
+
 Route::get('/create/product',[ProductController::class,'create']);
 Route::post('/store/product',[ProductController::class,'store']);
 Route::get('/edit/product/{id}',[ProductController::class,'edit']);
@@ -183,6 +191,11 @@ Route::put('/update/product/{id}',[ProductController::class,'update']);
 Route::post('/store/caroussel-item',[HomeCarouselController::class,'store']);
 Route::delete('/delete/carousel-item/{id}',[HomeCarouselController::class,'destroy']);
 
+Route::get('/backoffice/teams', function(){
+    $teams = User::where('job_id', '!=' , null)->get();
+    $jobs = Job::all();
+    return view('pages.backoffice.pages.teams',compact('teams','jobs'));
+})->name('backoffice-teams');
 
 Route::put('/backoffice/update/banner/{id}',[BannerController::class,'update']);
 

@@ -45,89 +45,91 @@
                                                     <th class="product-thumbnail">Product</th>
                                                     <th class="product-price">Price</th>
                                                     <th class="product-quantity">Quantity</th>
+                                                    <th class="product-modification">Apply modifications</th>
                                                     <th class="product-subtotal">Total</th>
                                                     <th class="product-remove">Remove</th>
                                                 </tr>
                                             </thead>
+                                            <?php
+                                                $sum = 0;
+                                                $quantity = 1;
+            
+                                            ?>
                                             <tbody>
+                                                @auth
+                                            <?php  
+                                            $_cart = Auth::user()->products->sortBy('id');
+                                           ?>
+                                           
+                                            @for ($i = 0; $i < $_cart->count(); $i++  )
+                                
+                                                <?php
+                                                    
+                                                    $product = $_cart[$i];
+
+                                                    echo $i;
+                                                    $current_id = $product->id;
+                                                    $sum+=$product->price;
+                                                    ?>
+                                                @if ($i+1 != $_cart->count() && $current_id == $_cart[$i+1]->id )
+                                                    <?php 
+                                                        $quantity += 1; 
+                                                    ?>
+                                                @else
+                                                    <?php 
+                                                        
+                                                        echo 'prev '. $current_id;
+                                                        $current_id = $product->id;
+                                                        
+                                                    ?>
                                                 <tr>
                                                     <td class="product-thumbnail  text-left">
                                                         <!-- Single-product start -->
                                                         <div class="single-product">
                                                             <div class="product-img">
-                                                                <a href="single-product.html"><img src="img/product/2.jpg" alt="" /></a>
+                                                                <a href="single-product.html"><img src={{asset("assets/img/product/" . $product->image)}} alt="" /></a>
                                                             </div>
                                                             <div class="product-info">
-                                                                <h4 class="post-title"><a class="text-light-black" href="#">dummy product name</a></h4>
+                                                                <h4 class="post-title"><a class="text-light-black" href="#">{{$product->title}}</a></h4>
                                                                 <p class="mb-0">Color :  Black</p>
-                                                                <p class="mb-0">Size :     SL</p>
+                                                                <p class="mb-0">Size :     {{$product->size}}</p>
                                                             </div>
                                                         </div>
                                                         <!-- Single-product end -->												
                                                     </td>
-                                                    <td class="product-price">$56.00</td>
+                                                    <td class="product-price">$ {{$product->price}}</td>
                                                     <td class="product-quantity">
                                                         <div class="cart-plus-minus">
-                                                            <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
+                                                            <form action="/cart" class="d-flex flex-column">
+                                                                @csrf
+                                                                <div>
+                                                                    <input id={{'quantity' . $product->id}} type="number" value="{{$quantity}}" name="qtybutton" class="cart-plus-minus-box">
+                                                                </div>
+                                                                <td>
+                                                                    <button type="submit">apply</button>
+                                                                </td>
+                                                            </form>
+
                                                         </div>
                                                     </td>
-                                                    <td class="product-subtotal">$112.00</td>
+                                                    
+
+                                                    <td class="product-subtotal">$ {{$product->price * $quantity}}</td>
                                                     <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                        <form action="/product/cart/delete/{{$product->id}}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"><i class="zmdi zmdi-close"></i></button>
+                                                        </form>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="product-thumbnail  text-left">
-                                                        <!-- Single-product start -->
-                                                        <div class="single-product">
-                                                            <div class="product-img">
-                                                                <a href="single-product.html"><img src="img/product/12.jpg" alt="" /></a>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <h4 class="post-title"><a class="text-light-black" href="#">dummy product name</a></h4>
-                                                                <p class="mb-0">Color :  Black</p>
-                                                                <p class="mb-0">Size :     SL</p>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Single-product end -->												
-                                                    </td>
-                                                    <td class="product-price">$56.00</td>
-                                                    <td class="product-quantity">
-                                                        <div class="cart-plus-minus">
-                                                            <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-subtotal">$112.00</td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="product-thumbnail  text-left">
-                                                        <!-- Single-product start -->
-                                                        <div class="single-product">
-                                                            <div class="product-img">
-                                                                <a href="single-product.html"><img src="img/product/6.jpg" alt="" /></a>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <h4 class="post-title"><a class="text-light-black" href="#">dummy product name</a></h4>
-                                                                <p class="mb-0">Color :  Black</p>
-                                                                <p class="mb-0">Size :     SL</p>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Single-product end -->												
-                                                    </td>
-                                                    <td class="product-price">$56.00</td>
-                                                    <td class="product-quantity">
-                                                        <div class="cart-plus-minus">
-                                                            <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-subtotal">$112.00</td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
+                                                    <?php $quantity = 1; ?>
+                                                @endif
+            
+                                            @endfor
+                                        @endauth
+
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -137,30 +139,46 @@
                                         <div class="customer-login mt-30">
                                             <h4 class="title-1 title-border text-uppercase">coupon discount</h4>
                                             <p class="text-gray">Enter your coupon code if you have one!</p>
-                                            <input type="text" placeholder="Enter your code here.">
-                                            <button type="submit" data-text="apply coupon" class="button-one submit-button mt-15">apply coupon</button>
+                                            
+                                            <form action="/cart">
+                                                @csrf
+                                                <input type="text" placeholder="Enter your code here." name='input_code'>
+                                                <button type="submit" data-text="apply coupon" class="button-one submit-button mt-15">apply coupon</button>
+
+                                            </form>
                                         </div>
+                                        <?php 
+                                            if(isset($_GET['input_code'])) {
+                                                if ($_GET['input_code'] == 'cactus') {
+                                                    $discount = 0.25;
+                                                }
+                                            }
+                                      
+                                            
+                                      
+                                        ?>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="customer-login payment-details mt-30">
                                             <h4 class="title-1 title-border text-uppercase">payment details</h4>
                                             <table>
+                                                <?php $tva = $sum * 0.21 ?>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-left">Cart Subtotal</td>
-                                                        <td class="text-end">$155.00</td>
+                                                        <td class="text-left">Cart total</td>
+                                                        <td class="text-end"> {{$sum}} $</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-left">Cart Subtotal</td>
-                                                        <td class="text-end">$15.00</td>
+                                                        <td class="text-left">Discount code</td>
+                                                        <td class="text-end "> + @if(isset($_GET['input_code'])) {{ $sum - ($sum * $discount) }} $ @else 0 @endif</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-left">Vat</td>
-                                                        <td class="text-end">$00.00</td>
+                                                        <td class="text-end"> + {{$tva}} $</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-left">Order Total</td>
-                                                        <td class="text-end">$170.00</td>
+                                                        <td class="text-end">$ {{$sum + $tva + $discount}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -41,7 +41,7 @@ class BannerSeeder extends Seeder
                 'image' => 'contact.png' 
             ],
             [
-                'section' => 'wishlist',
+                'section' => 'checkout',
                 'image' => 'contact.png' 
             ],
         ]);

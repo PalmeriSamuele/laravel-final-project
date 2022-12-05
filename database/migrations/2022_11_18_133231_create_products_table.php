@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('size',10);            
             $table->string('image',200);            
+            $table->mediumInteger('stock');            
             $table->boolean('isFavorite')->default(0);            
             $table->foreignId('categorie_id')->constrained();         
             $table->timestamps();

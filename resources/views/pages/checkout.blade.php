@@ -4,7 +4,7 @@
 <title>Checkout || Hurst</title>
 
 @section('content')
-	@include('partials.cart')
+	@include('partials.checkout')
 	@include('partials.footer')
 @endsection
 		

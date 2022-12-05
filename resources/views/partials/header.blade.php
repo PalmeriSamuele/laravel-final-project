@@ -35,18 +35,21 @@
                                     ?>
                                     <div class="all-cart-product clearfix">
                                         @auth
-                                            <?php $cart = Auth::user()->products->sortBy('id'); ?>
-                                            @for ($i = 0; $i < $cart->count(); $i++  )
+                                            <?php  
+                                            $_cart = Auth::user()->products->sortBy('id');
+                                            ?>
+                                           
+                                            @for ($i = 0; $i < $_cart->count(); $i++  )
                                 
                                                 <?php
                                                     
-                                                    $product = $cart[$i];
+                                                    $product = $_cart[$i];
 
                                                     echo $i;
                                                     $current_id = $product->id;
                                                     $sum+=$product->price;
                                                     ?>
-                                                @if ($i+1 != $cart->count() && $current_id == $cart[$i+1]->id )
+                                                @if ($i+1 != $_cart->count() && $current_id == $_cart[$i+1]->id )
                                                     <?php 
                                                         $quantity += 1; 
                                                     ?>

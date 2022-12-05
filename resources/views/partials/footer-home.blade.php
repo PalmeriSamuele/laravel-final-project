@@ -18,11 +18,10 @@
                     <div class="single-footer">
                         <h3 class="footer-title  title-border">accounts</h3>
                         <ul class="footer-menu">
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Wishlist</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Sign In</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
+                            <li><a href="/my-account"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
+                            <li><a href="/cart"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
+                            <li><a href="/login"><i class="zmdi zmdi-dot-circle"></i>Sign In</a></li>
+                            <li><a href="/checkout"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -42,25 +41,19 @@
                     <div class="single-footer">
                         <h3 class="footer-title  title-border">your choice Products</h3>
                         <div class="footer-product">
-                            <div class="row">
-                                <div class="col-sm-6 col-12">
-                                    <div class="footer-thumb">
-                                        <a href="#"><img src="img/footer/1.jpg" alt="" /></a>
-                                        <div class="footer-thumb-info">
-                                            <p><a href="#">Furniture Product<br>Name</a></p>
-                                            <h4 class="price-3">$ 60.00</h4>
+                            <div class=" d-flex">
+                                @foreach ($products_footer as $product )
+                                    <div class="col-sm-6 col-12">
+                                        <div class="footer-thumb">
+                                            <a href="#"><img src={{asset("assets/img/product/" . $product->image )}} alt="" /></a>
+                                            <div class="footer-thumb-info">
+                                                <p><a href="#">{{$product->title}}</a></p>
+                                                <h4 class="price-3">$ {{$product->price}}</h4>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                    <div class="footer-thumb">
-                                        <a href="#"><img src="img/footer/1.jpg" alt="" /></a>
-                                        <div class="footer-thumb-info">
-                                            <p><a href="#">Furniture Product<br>Name</a></p>
-                                            <h4 class="price-3">$ 60.00</h4>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+             
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,8 @@ class ProductSeeder extends Seeder
                 'size' => 'M',
                 'image' => '1.jpg',
                 'isFavorite' => 1,
-                'categorie_id' => 1
+                'categorie_id' => 1,
+                'stock' => 1000
             ],
         ]);
     }

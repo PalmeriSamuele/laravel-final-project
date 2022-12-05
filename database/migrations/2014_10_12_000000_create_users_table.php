@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('state',40)->nullable();
             $table->string('city',40)->nullable(); 
             $table->string('adress')->nullable(); 
-            $table->foreignId('job_id')->nullable();
-            $table->foreignId('role_id')->nullable();
-            $table->rememberToken();
+            $table->foreignId('job_id')->default(5);
+            $table->foreignId('role_id')->default(5);
+            $table->rememberToken(); 
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
