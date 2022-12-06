@@ -18,7 +18,7 @@
               
                   <p class="card-text">{{ Str::limit($blog->text,100,'...') }}</p>
                   <div class="d-flex justify-content-between">
-                    <a href="{{route('edit-blog',$blog->id)}}" class="btn btn-primary rounded">read</a>
+                    <a href="{{route('edit-blog',$blog->id)}}" class="btn btn-primary rounded">modifié</a>
                     <form action="/delete/blog/{{$blog->id}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('DELETE')

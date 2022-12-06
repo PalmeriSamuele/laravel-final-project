@@ -47,11 +47,11 @@
                                     </div>
                                     <div class="single-order-info">
                                         <h4 class="title-1 text-uppercase text-light-black mb-0">Date</h4>
-                                        <p class="text-uppercase text-light-black mb-0"><strong>june 15, 2021</strong></p>
+                                        <p class="text-uppercase text-light-black mb-0"><strong>{{now()}}</strong></p>
                                     </div>
                                     <div class="single-order-info">
                                         <h4 class="title-1 text-uppercase text-light-black mb-0">Total</h4>
-                                        <p class="text-uppercase text-light-black mb-0"><strong>$ 170.00</strong></p>
+                                        <p class="text-uppercase text-light-black mb-0"><strong>{{$_GET['total']}} $ </strong></p>
                                     </div>
                                     <div class="single-order-info">
                                         <h4 class="title-1 text-uppercase text-light-black mb-0">payment method</h4>
@@ -71,30 +71,84 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <?php
+                                                        $sum = 0;
+                                                        $quantity = 1;
+                    
+                                                    ?>
+                                                    <tbody>
+                                                        @auth
+                                                    <?php  
+                                                    $_cart = Auth::user()->products->sortBy('id');
+                                                   ?>
+                                                   
+                                                    @for ($i = 0; $i < $_cart->count(); $i++  )
+                                        
+                                                        <?php
+                                                            
+                                                            $product = $_cart[$i];
+        
+                                                            
+                                                            $current_id = $product->id;
+                                                            $sum+=$product->price;
+                                                            ?>
+                                                        @if ($i+1 != $_cart->count() && $current_id == $_cart[$i+1]->id )
+                                                            <?php 
+                                                                $quantity += 1; 
+                                                            ?>
+                                                        @else
+                                                            <?php 
+                                                                
+                                                               
+                                                                $current_id = $product->id;
+                                                                
+                                                            ?>
                                                         <tr>
-                                                            <td>Dummy Product Name  x 2</td>
-                                                            <td class="text-end">$86.00</td>
+                                                            <td>{{$product->title}}  x {{$quantity}}</td>
+                                                            <td class="text-end"> {{$product->price * $quantity}} $</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Dummy Product Name  x 1</td>
-                                                            <td class="text-end">$69.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Cart Subtotal</td>
-                                                            <td class="text-end">$155.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Shipping and Handing</td>
-                                                            <td class="text-end">$15.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Vat</td>
-                                                            <td class="text-end">$00.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Order Total</td>
-                                                            <td class="text-end">$170.00</td>
-                                                        </tr>
+
+
+        
+                                  
+                                                            <?php $quantity = 1; ?>
+                                                        @endif
+                    
+                                                    @endfor
+                                                    <?php  
+                                                        $tva = $sum *0.21; 
+                                                        if(isset($_GET['input_code'])) {
+                                                            if ($_GET['input_code'] == 'cactus') {
+                                                                $discount = $sum * 0.25;
+                                                            }
+                                                           
+                                                        } 
+                                                        else{
+                                                                $discount = 0;
+                                                            }
+                                                    ?>
+                                                    <tr>
+                                                        <td>Cart Subtotal</td>
+                                                        <td class="text-end">{{$sum}} $</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping and Handing</td>
+                                                        <td class="text-end">15.00 $</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Code</td>
+                                                        <td class="text-end">+ {{$discount}} $</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vat</td>
+                                                        <td class="text-end">{{$tva}} $</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Order Total</td>
+                                                        <td class="text-end">{{$sum + $tva + 15 + $discount}} $</td>
+                                                    </tr>
+                                                @endauth
+
                                                     </tbody>
                                                 </table>
                                             </div>

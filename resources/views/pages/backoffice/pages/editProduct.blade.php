@@ -32,6 +32,7 @@
                 <option value={{$cat->id}}>{{$cat->name}}</option>
             @endforeach
         </datalist> --}}
+        <input type="number" max="10000" name="stock" id="" placeholder="Nombre de stock" value="{{ old('stock', $product->stock)}}">
 
         <select name="categories_id" id="" class="p-2">
             <option value={{$product->categorie->id}}>{{$product->categorie->name}}</option>
@@ -45,4 +46,37 @@
         <img class='col-5' src="{{asset('assets/img/product/' . $product->image)}}" alt="">
        <input type="submit" class="btn btn-success" value="ajouter">
     </form>
+    <div>
+        <h4 class="mt-3 text-center">Ajouter des images supplementaires</h4>
+        <div class="d-flex gap-3 justify-content-center  arrow-left-right mt-3 ">
+            @foreach ($sideimages as $image )
+                <!-- Single-product start -->
+                <div class="border m-0">
+                    <div class="m-0">
+                        <div >
+                           
+                            <form action="/delete/sideimage/{{$image->id}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('DELETE')
+                                <input class="pro-label border-0 bg-danger" type="submit" value="delete">
+                            </form>
+                            
+                        
+                        </div>
+                        <img class="m-0" src={{asset('assets/img/product/sideimage/'. $image->image)}} alt="" />
+                    </div>
+                </div>
+                <!-- Single-product end -->
+            @endforeach
+    
+        </div>
+    
+        <form action="/store/sideimage/{{$product->id}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="image" id="" class="btn btn-secondary rounded">
+            <input type="submit" value="ajouté" class="btn btn-success rounded" >
+        </form>
+    </div>
+
+
 @endsection

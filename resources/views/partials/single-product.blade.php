@@ -29,34 +29,8 @@
                     <!-- Single-pro-slider Big-photo start -->
                     <div class="single-pro-slider single-big-photo view-lightbox slider-for">
                         <div>
-                            <img src={{asset("assets/img/single-product/medium/1.jpg")}} alt="" />
-                            <a class="view-full-screen" href={{asset("assets/img/single-product/large/1.jpg" )}} data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <img src={{asset("assets/img/single-product/medium/2.jpg")}} alt="" />
-                            <a class="view-full-screen" href={{asset("assets/img/single-product/large/2.jpg" )}} data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <img src="img/single-product/medium/3.jpg" alt="" />
-                            <a class="view-full-screen" href="img/single-product/large/3.jpg"  data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <img src={{asset("assets/img/single-product/medium/4.jpg")}} alt="" />
-                            <a class="view-full-screen" href={{asset("assets/img/single-product/large/4.jpg" )}} data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <img src={{asset("assets/img/single-product/medium/5.jpg")}} alt="" />
-                            <a class="view-full-screen" href={{asset("assets/img/single-product/large/5.jpg" )}} data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
+                            <img src={{asset("assets/img/product/single/" . $product->image)}} alt="" />
+
                         </div>
                     </div>	
                     <!-- Single-pro-slider Big-photo end -->								
@@ -68,7 +42,7 @@
                             <span class="pro-price">$ {{$product->price}}</span>
                         </div>
                         <div class="product-description">
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have be suffered alteration in some form, by injected humou or randomised words which donot look even slightly believable. If you are going to use a passage of Lorem Ipsum. </p>
+                            <p>{{$product->desc}}</p>
                         </div>
                         <!-- Size start -->
                         <div class="size-filter single-pro-size mb-35 clearfix">
@@ -78,32 +52,26 @@
                             </ul>
                         </div>
                         <!-- Size end -->
-                        <div class="clearfix">
-                            <div class="cart-plus-minus">
-                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
+                        <div class="d-felx gap-2">
+                            <div class="col-1">
+                                <input disabled type="text" value="1" name="qtybutton" class="">
                             </div>
-                            <div class="product-action clearfix">
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                            <div class="product-action m-0 d-flex gap-3 align-items-center col-">
+                                <form action="/product/cart/store/{{$product->id}}" method="post" class="col-1">
+                                    @csrf
+                                    <button type="submit" class="col-12" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
+                                </form>  
+
                             </div>
                         </div>
                         <!-- Single-pro-slider Small-photo start -->
                         <div class="single-pro-slider single-sml-photo slider-nav">
+                            @foreach ($sideimages as $image )
                             <div>
-                                <img src={{asset("assets/img/single-product/small/1.jpg")}} alt="" />
+                                <img src={{asset("assets/img/product/sideimage/" . $image->image)}} alt="" />
                             </div>
-                            <div>
-                                <img src={{asset("assets/img/single-product/small/2.jpg")}} alt="" />
-                            </div>
-                            <div>
-                                <img src={{asset("assets/img/single-product/small/3.jpg")}} alt="" />
-                            </div>
-                            <div>
-                                <img src={{asset("assets/img/single-product/small/4.jpg")}} alt="" />
-                            </div>
-                            <div>
-                                <img src={{asset("assets/img/single-product/small/5.jpg")}} alt="" />
-                            </div>
+                            @endforeach
+
                         </div>
                         <!-- Single-pro-slider Small-photo end -->
                     </div>
@@ -139,61 +107,52 @@
                             <div class="pro-tab-info pro-reviews">
                                 <div class="customer-review mb-60">
                                     <h3 class="tab-title title-border mb-30">Customer review</h3>
-                                    <ul class="product-comments clearfix">
-                                        <li class="mb-30">
-                                            <div class="pro-reviewer">
-                                                <img src={{asset("assets/img/reviewerproduct/1.jpg")}} alt="" />
-                                            </div>
-                                            <div class="pro-reviewer-comment">
-                                                <div class="fix">
-                                                    <div class="floatleft mbl-center">
-                                                        <h5 class="text-uppercase mb-0"><strong>Gerald Barnes</strong></h5>
-                                                        <p class="reply-date">27 Jun, 2021 at 2:30pm</p>
-                                                    </div>
-                                                    <div class="comment-reply floatright">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </div>
+                                    <div>
+                                        @foreach ($reviews as $review )
+                                            <div>
+                                                <div class="pro-reviewer">
+                                                    <img src={{ asset('assets/img/user/' . $review->user->image )}} alt="" />
                                                 </div>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            </div>
-                                        </li>
-                                        <li class="threaded-comments">
-                                            <div class="pro-reviewer">
-                                                <img src={{asset("assets/img/reviewer/1.jpg")}} alt="" />
-                                            </div>
-                                            <div class="pro-reviewer-comment">
-                                                <div class="fix">
-                                                    <div class="floatleft mbl-center">
-                                                        <h5 class="text-uppercase mb-0"><strong>Gerald Barnes</strong></h5>
-                                                        <p class="reply-date">27 Jun, 2021 at 2:30pm</p>
+                                                <div class="pro-reviewer-comment">
+                                                    <div class="fix">
+                                                        <div class="floatleft mbl-center">
+                                                            <h5 class="text-uppercase mb-0"><strong>{{$review->user->name}}</strong></h5>
+                                                            <p class="reply-date">{{$review->created_at}}</p>
+                                                        </div>
+                                                        <div class="comment-reply floatright d-flex gap-1">
+                                                            {{-- <a href="#"><i class="zmdi zmdi-mail-reply"></i></a> --}}
+                                                            <form action="/delete/review/{{$review->id}}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"> X </button>
+                            
+                                                            </form>
+                                                            
+                                                        </div>
                                                     </div>
-                                                    <div class="comment-reply floatright">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </div>
+                                                    <p class="mb-0">{{$review->content}}</p>
                                                 </div>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
                                             </div>
-                                        </li>
-                                    </ul>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="leave-review">
                                     <h3 class="tab-title title-border mb-30">Leave your review</h3>
                                     
                                     <div class="reply-box">
-                                        <form action="#">
+                                        <form action="/product/store/review/{{$product->id}}" method="post">
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" placeholder="Your name here..." name="name" />
+                                                    <input type="text" placeholder="Your name here..." value={{Auth::user()->name}} name="name" />
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" placeholder="Subject..." name="name" />
+                                                    <input type="text" value={{Auth::user()->email}} placeholder="Your email here..." name="email" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <textarea class="custom-textarea" name="message" placeholder="Your review here..." ></textarea>
+                                                    <textarea class="custom-textarea" name="content" placeholder="Your review here..." ></textarea>
                                                     <button type="submit" data-text="submit review" class="button-one submit-button mt-20">submit review</button>
                                                 </div>
                                             </div>

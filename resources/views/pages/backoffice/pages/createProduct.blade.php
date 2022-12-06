@@ -19,7 +19,7 @@
                 <option value={{$cat->id}}>{{$cat->name}}</option>
             @endforeach
         </datalist> --}}
-
+        <input type="number" max="10000" name="stock" id="" placeholder="Nombre de stock">
         <select name="categories_id" id="" class="p-2">
             @foreach ($categories as $cat )
                 <option value={{$cat->id}}>{{$cat->name}}</option>

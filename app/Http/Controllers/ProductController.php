@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Review;
+use App\Models\Sideimage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -28,6 +30,7 @@ class ProductController extends Controller
             'desc' => 'required',
             'price' => 'required',
             'size' => 'required',
+            'stock' => 'required|max:10000',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         $product = new Product();
@@ -37,6 +40,7 @@ class ProductController extends Controller
         $product->size = $request->size;
         $product->image = $request->file('image')->hashName();
         $product->categorie_id = $request->categories_id;
+        $product->stock = $request->stock;
         $product->isFavorite = 0;
         // have to do the images for the products
         // $image_input = $request->file('image');
@@ -45,6 +49,10 @@ class ProductController extends Controller
         $image = Image::make($request->file('image'))->resize(270,270);
     
         $image->save('assets/img/product/'.$request->file('image')->hashName());
+
+        $image2 = Image::make($request->file('image'))->resize(370,450);
+    
+        $image2->save('assets/img/product/single/'.$request->file('image')->hashName());
         $product->save();
         return redirect()->back()->with('success','Produit ajouté');
 
@@ -52,7 +60,9 @@ class ProductController extends Controller
     public function edit($id){
         $product = Product::find($id);
         $categories = Categorie::all();
-        return view('pages.backoffice.pages.editProduct',compact('product','categories'));
+        $sideimages = Sideimage::all()
+        ->where('product_id',$id);
+        return view('pages.backoffice.pages.editProduct',compact('product','categories','sideimages'));
     }
 
     public function update( Request $request, $id){
@@ -62,6 +72,7 @@ class ProductController extends Controller
             'desc' => 'required',
             'price' => 'required|digits_between:0,10000',
             'size' => 'required',
+            'stock' => 'required|max:10000',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         $product = Product::find($id);
@@ -69,6 +80,7 @@ class ProductController extends Controller
         $product->desc = $request->desc;
         $product->price = $request->price;
         $product->size = $request->size;
+        $product->stock = $request->stock;
         if($request->isFavorite == '1'){
             Product::query()->update(['isFavorite' => 0]);
             $product->isFavorite = 1;
@@ -79,9 +91,13 @@ class ProductController extends Controller
         $product->categorie_id = $request->categories_id;
 
         unlink(public_path('assets/img/product/' . $product->image));
+        unlink(public_path('assets/img/product/single/' . $product->image));
         $image = Image::make($request->file('image'))->resize(270,270);
         $image->save('assets/img/product/'.$request->file('image')->hashName());
-
+        // image single product
+        $image2 = Image::make($request->file('image'))->resize(370,450);
+    
+        $image2->save('assets/img/product/single/'.$request->file('image')->hashName());
         $product->image = $request->file('image')->hashName();
         $product->save();
         return redirect()->back()->with('success','Produit modifié');;
@@ -91,6 +107,7 @@ class ProductController extends Controller
     public function destroy($id){
         $product = Product::find($id);
         unlink(public_path('assets/img/product/' . $product->image));
+        unlink(public_path('assets/img/product/single/' . $product->image));
        
         $product->delete();
         
@@ -99,7 +116,11 @@ class ProductController extends Controller
 
     public function show($id){
         $product = Product::find($id);
-        return view('pages.single-product',compact('product'));
+        $sideimages = Sideimage::all()->where('product_id',$id);
+        $reviews = Review::where('product_id',$product->id)->get();
+        
+        
+        return view('pages.single-product',compact('product','sideimages','reviews'));
     }
 
 }

@@ -10,6 +10,7 @@
         <a class="nav-link text-secondary" href="{{route('backoffice-blogs')}}">Blogs</a>
         <a class="nav-link text-secondary" href="{{route('backoffice-users')}}">Users</a>
         <a class="nav-link text-secondary" href="{{route('backoffice-teams')}}">Teams</a>
+        <a class="nav-link text-secondary" href="/backoffice/validation/blogs">Blog Validation</a>
         
     </div>
   </nav>

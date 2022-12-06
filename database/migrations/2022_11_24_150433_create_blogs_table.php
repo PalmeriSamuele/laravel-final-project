@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title',200);
             $table->string('image');
             $table->text('text');
+            $table->boolean('isChecked')->default(0);
             $table->mediumInteger('likes')->default(0);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_blogs_id')->constrained();

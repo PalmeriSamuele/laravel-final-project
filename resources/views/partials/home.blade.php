@@ -57,18 +57,22 @@
                     <h2 class="banner-title"><a href="#">{{$new->title}}</a></h2>
                     <p class="mb-0">Furniture</p>
                 </div>
-                <form action="/product/cart/store/{{$new->id}}">
+                <form action="/product/cart/store/{{$new->id}}" method="post">
                     @csrf
-                    <input class="button-one font-16px" type="submit" value="Buy now">
+                    <input class="button-one font-16px border-0" type="submit" value="Buy now">
                 </form>
-                <a href="/product/cart/store/{{$new->id}}" class="button-one font-16px" data-text="Buy now">Buy now</a>
+                
             </div>
             <div class="single-banner banner-2">
                 <a class="banner-thumb" href="#"><img src={{'assets/img/product/' . $favorite->image}} alt="" /></a>
                 <div class="banner-brief">
                     <h2 class="banner-title"><a href="#">{{$favorite->title}}</a></h2>
                     <p class="hidden-md hidden-sm d-none d-md-block">{{$favorite->desc}}</p>
-                    <a href="#" class="button-one font-16px" data-text="Buy now">Buy now</a>
+                    <form action="/product/cart/store/{{$favorite->id}}" method="post">
+                        @csrf
+                        <input class="button-one font-16px border-0" type="submit" value="Buy now">
+                    </form>
+                    
                 </div>
             </div>
         </div>
@@ -100,7 +104,7 @@
                                     <h3 class="slider-title2 text-uppercase" >gallery 2021</h3>
                                 </div>
                                 <div class="wow fadeIn" data-wow-duration="2.5s" data-wow-delay="3.5s">
-                                    <a href="#" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
+                                    <a href="/shop-list" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +126,7 @@
                                     <p class="slider-pro-brief">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
                                 </div>
                                 <div class="wow fadeInUpBig" data-wow-duration="2.5s" data-wow-delay="0.5s">
-                                    <a href="#" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
+                                    <a href="/shop-list" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +151,8 @@
                                     <p class="slider-pro-brief">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
                                 </div>
                                 <div class="wow fadeInUpBig" data-wow-duration="3s" data-wow-delay="0.5s">
-                                    <a href="#" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
+                                    <a href="/shop-list" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
+
                                 </div>
                             </div>
                         </div>
@@ -223,12 +228,13 @@
                             <div class="product-img">
                                 <span class="pro-label new-label">new</span>
                                 <a href="single-product.html"><img src={{asset('assets/img/product/'. $slide->image)}} alt="" /></a>
-                                <div class="product-action clearfix">
-                                    <a href="" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>		
-                                    <form action="/product/cart/store/{{$slide->id}}" method="post">
+                                <div class="product-action  d-flex gap-3 align-items-center">
+                                    <a href="#" class='d-flex align-items-center justify-content-center' data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
+                                    <form action="/product/cart/store/{{$slide->id}}" method="post" class="">
                                         @csrf
-                                        <button type="submit"  data-bs-toggle="tooltip" data-placement="top" title="Add To Cart">buy</button>
-                                    </form>								
+                                        <button type="submit" class="" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
+                                    </form>  
+
                                 </div>
                             </div>
                             <div class="product-info clearfix">

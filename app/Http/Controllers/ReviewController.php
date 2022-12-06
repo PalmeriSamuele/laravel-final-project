@@ -19,6 +19,19 @@ class ReviewController extends Controller
         return redirect()->back()->with('success','Avis ajouté');
     }
 
+    public function storeReviewProduct(Request $request, $id){
+        $review = new Review();
+        $review->user_id = Auth::user()->id;
+        $review->content = $request->content;
+        $review->product_id = $id;
+
+        $review->save();
+
+        return redirect()->back()->with('success','Avis ajouté');
+    }
+
+
+
     public function destroy($id){
         $review = Review::find($id);
         $review->delete();

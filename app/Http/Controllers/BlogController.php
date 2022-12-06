@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 class BlogController extends Controller
 {
     public function index(){
-        $blogs = Blog::all();
+        $blogs = Blog::all()->where('isChecked',1);
         return view('pages.backoffice.pages.blogs',compact('blogs'));
     }
     public function create(){
@@ -43,6 +43,10 @@ class BlogController extends Controller
         $blog->text = $request->text;
         $blog->category_blogs_id = $request->category_blogs_id;
         $blog->user_id = Auth::user()->id;
+
+        if(Auth::user()->role->id == 1 || Auth::user()->role->id == 2 ){
+            $blog->isChecked = 1;
+        }
         $blog->save();
         $tags = explode(',',$request->tags);
         foreach($tags as $tag){
@@ -104,5 +108,12 @@ class BlogController extends Controller
 
         $blog->delete();
         return redirect()->back()->with('success','Article correctement supprimé');
+    }
+
+    public function validateBlog($id){
+        $blog = Blog::find($id);
+        $blog->isChecked = 1;
+        $blog->save();
+        return redirect()->back()->with('success',"L'article a ete valider avec success" );
     }
 }

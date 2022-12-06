@@ -40,12 +40,12 @@
                                             @method('PUT')
                                             <input name='name' value="{{old('name', Auth::user()->name)}}" type="text" placeholder="Your name here...">
                                             <input name='email' type="text" placeholder="Email address here..." value="{{old('email',Auth::user()->email)}}">
-                                            <input name='phone' type="text" placeholder="Phone here...">
-                                            <label for="image">Choissisez votre photo de profile</label>
-                                            <input type="file" name="image" class="btn  m-2" id="">
-                                            <input name='company' type="text" placeholder="Company neme here...">
+                                            <input name='phone' type="text" placeholder="Phone here..." value="{{Auth::user()->phone}}">
+                                     
+                                            <input name='company' type="text" placeholder="Company neme here..." value="{{Auth::user()->company}}">
 
                                             <select name="country" class=" custom-select mb-15">
+                                                <option value="">{{Auth::user()->country}}</option>
                                                 <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Åland Islands">Åland Islands</option>
                                                 <option value="Albania">Albania</option>
@@ -293,6 +293,7 @@
                                             </select>
 
                                             <select name='state' class="custom-select mb-15" name='state'>
+                                                <option value="">{{Auth::user()->state}}</option>
                                                 <option>State</option>
                                                 <option>Dhaka</option>
                                                 <option>New York</option>
@@ -301,6 +302,7 @@
                                                 <option>Ottawa</option>
                                             </select>
                                             <select name='city' class="custom-select mb-15" name='city'>
+                                                <option value="">{{Auth::user()->city}}</option>
                                                 <option>Town / City</option>
                                                 <option>Dhaka</option>
                                                 <option>New York</option>
@@ -308,7 +310,7 @@
                                                 <option>Melbourne</option>
                                                 <option>Ottawa</option>
                                             </select>
-                                            <textarea name='adress' placeholder="Your address here..." class="custom-textarea"></textarea>
+                                            <textarea name='adress' placeholder="Your address here..." class="custom-textarea">{{old('adress',Auth::user()->adress)}}</textarea>
                                             <input type="submit" class=" submit-button submit-btn-one " value="mettre a jour">
                                         </form>
                                     </div>

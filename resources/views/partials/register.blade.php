@@ -1,6 +1,6 @@
 <form action="{{ route('register') }}" method="post">
     @csrf
-    <div >
+
         <div class="customer-login text-left">
             <h4 class="title-1 title-border text-uppercase mb-30">new customers</h4>
             <p class="text-gray">If you have an account with us, Please login!</p>
@@ -14,5 +14,5 @@
             </p>
             <button type="submit" data-text="regiter" class="button-one submit-button mt-15">register</button>
         </div>					
-    </div>
+
 </form>

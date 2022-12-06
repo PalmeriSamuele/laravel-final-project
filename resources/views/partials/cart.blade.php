@@ -36,7 +36,7 @@
                     <div class="tab-content">
                         <!-- shopping-cart start -->
                         <div class="tab-pane active" id="shopping-cart">
-                            <form action="#">
+                           
                                 <div class="shop-cart-table">
                                     <div class="table-content table-responsive">
                                         <table>
@@ -78,7 +78,7 @@
                                                 @else
                                                     <?php 
                                                         
-                                                        echo 'prev '. $current_id;
+                                                       
                                                         $current_id = $product->id;
                                                         
                                                     ?>
@@ -99,18 +99,20 @@
                                                     </td>
                                                     <td class="product-price">$ {{$product->price}}</td>
                                                     <td class="product-quantity">
-                                                        <div class="cart-plus-minus">
-                                                            <form action="/cart" class="d-flex flex-column">
-                                                                @csrf
-                                                                <div>
-                                                                    <input id={{'quantity' . $product->id}} type="number" value="{{$quantity}}" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div>
-                                                                <td>
-                                                                    <button type="submit">apply</button>
-                                                                </td>
-                                                            </form>
-
-                                                        </div>
+                                                
+                                                            <div>
+                                                                <button disabled>{{$quantity}}</button>
+                                                            </div>
+                 
+                                                    </td>
+                                                    <td>
+                                                        
+                                                        <form action="/product/cart/store/{{$product->id}}" method="post" class="">
+                                                            @csrf
+                                                            <button type="submit" class="" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
+                                                        </form>  
+        
+                                                        
                                                     </td>
                                                     
 
@@ -150,8 +152,11 @@
                                         <?php 
                                             if(isset($_GET['input_code'])) {
                                                 if ($_GET['input_code'] == 'cactus') {
-                                                    $discount = 0.25;
+                                                    $discount = $sum * 0.25;
                                                 }
+                                            }
+                                            else{
+                                                $discount = 0;
                                             }
                                       
                                             
@@ -170,7 +175,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="text-left">Discount code</td>
-                                                        <td class="text-end "> + @if(isset($_GET['input_code'])) {{ $sum - ($sum * $discount) }} $ @else 0 @endif</td>
+                                                        <td class="text-end "> + {{$discount}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-left">Vat</td>
@@ -178,7 +183,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="text-left">Order Total</td>
-                                                        <td class="text-end">$ {{$sum + $tva + $discount}}</td>
+                                                        <td class="text-end">{{$sum + $tva + $discount}} $ </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -190,7 +195,13 @@
                         <!-- shopping-cart end -->
                         <!-- check-out end -->
                     </div>
-                    <button type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</button>
+                    @if(isset($_GET['input_code']))
+                        <a href={{'/checkout?_token=POOp9jPtjAWUN5nSte2XxEjoRymEOB8yspIp1QID&input_code='. $_GET['input_code'] }} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
+                    @else
+                        <a href={{'/checkout'}} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
+
+                    @endif
+                    
                 </div>
             </div>
         </div>

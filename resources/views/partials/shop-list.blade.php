@@ -75,8 +75,8 @@
                     </div>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane active" id="grid-view">							
-                            <div class="row">
+                        <div class="tab-pane " id="grid-view">							
+                            <div class="d-flex gap-2 flex-wrap">
                                 {{-- @dd($products->groupBy('categorie_id')); --}}
                                 @foreach ($products as $product )
                                     <!-- Single-product start -->
@@ -91,16 +91,68 @@
                                                 <div class="fix">
                                                     <h4 class="post-title"><a href="#">{{$product->title}}</a></h4>
                                                 </div>
-                                                <div class="product-action clearfix">
-                                                    <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                    <a href="/cart" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                <div class="product-action  d-flex gap-3 align-items-center">
+                                                    <a href="#" class='d-flex align-items-center justify-content-center' data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                    <form action="/product/cart/store/{{$product->id}}" method="post" class="">
+                                                        @csrf
+                                                        <button type="submit" class="" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
+                                                    </form>  
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Single-product end -->
+
+
+                                    
+
+
+                        
                                 @endforeach
                               
+                            </div>
+                            
+                        </div>
+                        <div class="tab-pane active" id="list-view">							
+                            <div class="row shop-list">
+                               @foreach ($products as $product )
+                                    <!-- Single-product start -->
+                                    <div class="col-lg-12">
+                                    <div class="single-product clearfix">
+                                        <div class="product-img">
+                                            <span class="pro-label new-label">new</span>
+                                            <span class="pro-price-2">$ {{$product->price}}</span>
+                                            <a href="/product/{{$product->id}}"><img src={{asset("assets/img/product/" . $product->image)}} alt="" /></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="fix">
+                                                <h4 class="post-title floatleft"><a href="#">{{$product->title}}</a></h4>
+                                            </div>
+                                            <div class="fix mb-20">
+                                                <span class="pro-price">$ {{$product->price}}</span>
+                                                {{-- <span class="old-price font-16px ml-10"><del>$ 96.20</del></span> --}}
+                                            </div>
+                                            <div class="product-description">
+                                                <p>{{$product->desc}}</p>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="cart-plus-minus">
+                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
+                                                </div>
+                                                <div class="product-action  d-flex gap-3 align-items-center">
+                                                    <a href="#" class='d-flex align-items-center justify-content-center' data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                    <form action="/product/cart/store/{{$product->id}}" method="post" class="">
+                                                        @csrf
+                                                        <button type="submit" class="" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
+                                                    </form>                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single-product end -->
+                               @endforeach
                             </div>
                         </div>
                     </div>
