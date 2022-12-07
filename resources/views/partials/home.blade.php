@@ -1,6 +1,7 @@
 <?php 
     use Carbon\Carbon;
     use Illuminate\Support\Str;
+    use App\Models\Review;
 ?>
 <!-- Mobile-header-top Start -->
 <div class="mobile-header-top d-block d-md-none">
@@ -296,8 +297,11 @@
                                         </div>
                                     </div>
                                     <div class="like-share fix">
+                                        <?php 
+                                            $reviews = Review::where('blog_id',$blog->id);
+                                            ?>
                                         <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
-                                        <a href="#"><i class="zmdi zmdi-comments"></i><span>{{ dd($blog->review())}} Comments</span></a>
+                                        <a href="#"><i class="zmdi zmdi-comments"></i><span>{{ $reviews->count() }} Comments</span></a>
                                         
                                     </div>
                                     <p>{{ Str::limit($blog->text,100,'...') }}</p>
@@ -324,8 +328,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="subscribe">
-                    <form action="#">
-                        <input type="text" placeholder="Enter your email address"/>
+                    <form action="{{route('newsletter')}}" method="post">
+                        @csrf
+                        <input name='email' type="text" placeholder="Enter your email address"/>
                         <button class="submit-button submit-btn-2 button-one" data-text="subscribe" type="submit" >subscribe</button>
                     </form>
                 </div>

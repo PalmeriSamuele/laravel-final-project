@@ -41,15 +41,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                          
-                                                <form action='/store/user/info' class="billing-details shop-cart-table" method="post" enctype="multipart/form-data">
+                                                <form action='{{route('order-mail')}}' class="billing-details shop-cart-table" method="post">
                                                     @csrf
-                                                    @method('PUT')
+
                                                     <input name='name' value="{{old('name', Auth::user()->name)}}" type="text" placeholder="Your name here...">
                                                     <input name='email' type="text" placeholder="Email address here..." value="{{old('email',Auth::user()->email)}}">
                                                     <input name='phone' type="text" placeholder="Phone here..." value="{{Auth::user()->phone}}">
-                                             
-                                                    <input name='company' type="text" placeholder="Company neme here..." value="{{Auth::user()->company}}">
-        
+                                                
                                                     <select name="country" class=" custom-select mb-15">
                                                         <option value="">{{Auth::user()->country}}</option>
                                                         <option value="Afghanistan">Afghanistan</option>
@@ -297,7 +295,7 @@
                                                         <option value="Zambia">Zambia</option>
                                                         <option value="Zimbabwe">Zimbabwe</option>
                                                     </select>
-        
+                                                    
                                                     <select name='state' class="custom-select mb-15" name='state'>
                                                         <option value="">{{Auth::user()->state}}</option>
                                                         <option>State</option>
@@ -317,7 +315,8 @@
                                                         <option>Ottawa</option>
                                                     </select>
                                                     <textarea name='adress' placeholder="Your address here..." class="custom-textarea">{{old('adress',Auth::user()->adress)}}</textarea>
-                                                    <input type="submit" class=" submit-button submit-btn-one " value="mettre a jour">
+                                                    <input type="submit" class=" submit-button submit-btn-one " value="Passer la commande">
+                                                    
                                                 </form>
                                            
                                         </div>
@@ -405,18 +404,26 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Order Total</td>
-                                                        <td class="text-end">{{$sum + $tva + 15 + $discount}}</td>
+                                                        <td class="text-end">{{$sum + $tva + 15 + $discount}} $</td>
                                                     </tr>
                                                 @endauth
 
                                                     </tbody>
                                                 </table>
-                                                @if(isset($_GET['input_code']))
+
+                                                {{-- <form action="{{route('order-mail')}}" method="post">
+
+                                                    @csrf
+
+
+                                                    <input type="submit" value="send mail">
+                                                </form> --}}
+                                                {{-- @if(isset($_GET['input_code']))
                                                     <a href={{'/order?_token=POOp9jPtjAWUN5nSte2XxEjoRymEOB8yspIp1QID&input_code='. $_GET['input_code'] . '&total=' . $sum + $tva + 15 + $discount }} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
                                                 @else
                                                     <a href={{'/order?_token=POOp9jPtjAWUN5nSte2XxEjoRymEOB8yspIp1QID&total=' . $sum + $tva + 15 + $discount}} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
                             
-                                                @endif                                            </div>
+                                                @endif                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

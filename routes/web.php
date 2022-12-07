@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeCarouselController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SideimageController;
 use App\Http\Controllers\UserController;
@@ -123,7 +124,15 @@ Route::middleware('check-user')->group(function(){
         $blogs = Blog::where('isChecked',0)->get();
         return view('pages.backoffice.pages.blogValidation',compact('blogs'));
     });
+
+    Route::put('blog/add/like/{id}',[BlogController::class,'likes'])->name('like');
+
+
 });
+
+Route::post('/order/shipped',[MailController::class,'order'])->name('order-mail');
+
+Route::post('/newsletter',[MailController::class,'newsletter'])->name('newsletter');
 
 Route::get('/', function () {
     $sliders = Product::inRandomOrder()->limit(5)->get();

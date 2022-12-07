@@ -116,4 +116,12 @@ class BlogController extends Controller
         $blog->save();
         return redirect()->back()->with('success',"L'article a ete valider avec success" );
     }
+
+
+    public function likes($id){
+        $blog = Blog::find($id);
+        $blog->likes = $blog->likes + 1;
+        $blog->save();
+        return redirect()->back()->with('success','Like ajouté');
+    }
 }

@@ -1,6 +1,7 @@
 
 <?php 
     use Illuminate\Support\Str;
+    use App\Models\Review;
 ?>
 <!-- HEADING-BANNER START -->
 <div class=" overlay-bg" style="background: rgba(0, 0, 0, 0) url('assets/img/bg/{{$banner->image}}') no-repeat scroll center center / cover ;">
@@ -65,6 +66,10 @@
                         $date = $blog->created_at->format('d');
                         $monthName= $blog->created_at->format('F');
                         $year = $blog->created_at->format('Y');
+
+                       
+                        $reviews = Review::where('blog_id',$blog->id);
+                                            
     
                     ?>
                     <div class="col-lg-4 col-md-6">
@@ -72,7 +77,11 @@
                             <div class="blog-photo">
                                 <a href="#"><img src={{asset("assets/img/blog/" . $blog->image)}} alt="" /></a>
                                 <div class="like-share text-center fix">
-                                    <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
+                                    <form action="{{route('like',$blog->id)}}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></button>                                    
+                                    </form>
                                     <a href="#"><i class="zmdi zmdi-comments"></i><span>{{$reviews->count()}} Comments</span></a>
                                 </div>
                             </div>
@@ -80,7 +89,7 @@
                                 <div class="post-meta fix">
                                     <div class="post-date floatleft"><span class="text-dark-red">{{$date}}</span></div>
                                     <div class="post-year floatleft">
-                                        <p class="text-uppercase text-dark-red mb-0">{{$monthName}}, {{$year}}}}</p>
+                                        <p class="text-uppercase text-dark-red mb-0">{{$monthName}}, {{$year}}</p>
                                         <h4 class="post-title"><a href="#" tabindex="0">{{$blog->title}}</a></h4>
                                     </div>
                                 </div>
