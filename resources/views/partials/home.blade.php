@@ -297,11 +297,11 @@
                                     </div>
                                     <div class="like-share fix">
                                         <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
-                                        <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
-                                        <a href="#"><i class="zmdi zmdi-share"></i><span>29 Share</span></a>
+                                        <a href="#"><i class="zmdi zmdi-comments"></i><span>{{ dd($blog->review())}} Comments</span></a>
+                                        
                                     </div>
                                     <p>{{ Str::limit($blog->text,100,'...') }}</p>
-                                    <a href="#" class="button-2 text-dark-red">Read more...</a>
+                                    <a href="/blog/{{$blog->id}}" class="button-2 text-dark-red">Read more...</a>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-md-5">

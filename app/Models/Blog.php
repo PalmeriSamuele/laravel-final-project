@@ -24,6 +24,11 @@ class Blog extends Model
     public function tags(){
         return $this->belongsToMany(Tag::class);
     }
+    public function review(){
+        return $this->belongsTo(Review::class,'blog_id');
+    }
+
+    
 
 
     

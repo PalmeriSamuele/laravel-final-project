@@ -73,7 +73,7 @@
                                 <a href="#"><img src={{asset("assets/img/blog/" . $blog->image)}} alt="" /></a>
                                 <div class="like-share text-center fix">
                                     <a href="#"><i class="zmdi zmdi-favorite"></i><span>{{$blog->likes}} Like</span></a>
-                                    <a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>
+                                    <a href="#"><i class="zmdi zmdi-comments"></i><span>{{$reviews->count()}} Comments</span></a>
                                 </div>
                             </div>
                             <div class="blog-info"> 

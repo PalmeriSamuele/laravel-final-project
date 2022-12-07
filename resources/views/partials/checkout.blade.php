@@ -414,7 +414,7 @@
                                                 @if(isset($_GET['input_code']))
                                                     <a href={{'/order?_token=POOp9jPtjAWUN5nSte2XxEjoRymEOB8yspIp1QID&input_code='. $_GET['input_code'] . '&total=' . $sum + $tva + 15 + $discount }} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
                                                 @else
-                                                    <a href={{'/order&total=' . $sum + $tva + 15 + $discount}} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
+                                                    <a href={{'/order?_token=POOp9jPtjAWUN5nSte2XxEjoRymEOB8yspIp1QID&total=' . $sum + $tva + 15 + $discount}} type="submit" data-text="proceed-checkout" class="button-one submit-button mt-15">PROCEED CHECK OUT</a>
                             
                                                 @endif                                            </div>
                                         </div>

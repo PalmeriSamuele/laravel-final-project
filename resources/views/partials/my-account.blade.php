@@ -43,7 +43,7 @@
                                             <input name='phone' type="text" placeholder="Phone here..." value="{{Auth::user()->phone}}">
                                      
                                             <input name='company' type="text" placeholder="Company neme here..." value="{{Auth::user()->company}}">
-
+                                            <input type="file" class='btn btn-secondary' name="image" id="" >
                                             <select name="country" class=" custom-select mb-15">
                                                 <option value="">{{Auth::user()->country}}</option>
                                                 <option value="Afghanistan">Afghanistan</option>

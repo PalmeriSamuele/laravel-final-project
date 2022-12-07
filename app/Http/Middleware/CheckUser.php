@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Blog;
+use App\Models\Product;
+use App\Models\Review;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +24,9 @@ class CheckUser
         $uri = $request->path();
         
         if(Auth::check()){
+            if($uri == 'product/cart/store/' . $request->route('id') || $uri == 'product/cart/delete/' . $request->route('id') || $uri== 'cart' || $uri== 'checkout' || $uri== 'order' || ( $request->route('id') && ( $uri == 'blog/store/review/' . $request->route('id') || $uri == 'product/store/review/' . $request->route('id') || ($request->route('id') && Auth::user()->id == Review::find($request->route('id'))->user_id &&  $uri == 'delete/review/' . $request->route('id'))) ) ){
+                return $next($request);
+            }
             if (Auth::user()->role_id == 1) {
                 return $next($request);
             }
@@ -29,18 +35,29 @@ class CheckUser
                     return $next($request);
                 }
                 else{
-                    return redirect()->back()->with('warning',"Vousn'avez pas acces");
+                    return redirect()->back()->with('warning',"Vous n'avez pas accès à cette action");
                 }
             }
             else if(Auth::user()->role_id == 3){
-
+                if($uri == 'store/blog' || $uri == 'backoffice/create/blog' || $uri == 'backoffice' || $uri == 'backoffice/blogs' || ( $request->route('id') && Auth::user()->id == Blog::find($request->route('id'))->user_id && ( $uri == 'backoffice/edit/blog/' . $request->route('id') || $uri == 'delete/blog/' . $request->route('id')) || $uri == 'update/blog/' . $request->route('id'))){
+                    return $next($request);
+                }
+                else{
+                    return redirect()->back()->with('warning',"Vous n'avez pas accès à cette action");
+                }
             }
             else if(Auth::user()->role_id == 4){
-
+                if( $uri == 'backoffice' || $uri == 'backoffice/products' || $uri == 'create/product' || $uri == 'delete/product/' . $request->route('id') || $uri == 'update/product/' . $request->route('id') || $uri == 'backoffice/category/' . $request->route('id') || $uri == 'edit/product/' . $request->route('id') || $uri == 'store/product'){
+                    return $next($request);
+                }
+                else{
+                    return redirect()->back()->with('warning',"Vous n'avez pas accès à cette action");
+                }
             }
-            else if(Auth::user()->role_id == 5){
-
+            else{
+                return redirect()->back()->with('danger',"Vous n'avez pas accès à cette action");
             }
+      
 
         }
         else{

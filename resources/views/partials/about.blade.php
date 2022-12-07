@@ -78,7 +78,7 @@
                 @foreach ($employee as $team )
                     <div class="col-lg-3 col-md-6">
                         <div class="single-member text-center bg-white mt-25">
-                            <img src={{asset("assets/img/users/" . $boss->image)}} alt="" />
+                            <img src={{asset("assets/img/users/" . $team->image)}} alt="" />
                             <h3 class="text-uppercase mt-20">{{$team->name}}</h3>
                             <h4 class="text-uppercase text-gray">{{$team->job->job}}</h4>
                             <p class="text-gray">There are many variations of passage of Lorem Ipsum available, but the in majority have suffered.</p>
