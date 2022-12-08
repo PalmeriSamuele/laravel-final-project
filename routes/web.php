@@ -43,7 +43,8 @@ Route::middleware('check-user')->group(function(){
         $banner = Banner::all()->where('section','cart')->first();
         return view('pages.cart',compact('banner'));
     });
-
+    
+    Route::get('backoffice/mails',[MailController::class,'index']);
     
     Route::get('/checkout', function () {
     
@@ -133,6 +134,16 @@ Route::middleware('check-user')->group(function(){
 Route::post('/order/shipped',[MailController::class,'order'])->name('order-mail');
 
 Route::post('/newsletter',[MailController::class,'newsletter'])->name('newsletter');
+Route::post('/message',[MailController::class,'message'])->name('message');
+
+Route::delete('/delete/mail/{id}',[MailController::class,'destroy']);
+
+Route::get('/mail/{id}',[MailController::class,'show']);
+
+Route::put('/mail/archive/{id}',[MailController::class,'archive']); 
+Route::put('/mail/mailbox/{id}',[MailController::class,'mailbox']); 
+
+Route::get('/backoffice/archive',[MailController::class,'archive_get']); 
 
 Route::get('/', function () {
     $sliders = Product::inRandomOrder()->limit(5)->get();

@@ -29,46 +29,40 @@
                                     <?php
                                         $sum = 0;
                                         $quantity = 1;
-                                        
-    
-                                                       
+
                                     ?>
                                     <div class="all-cart-product clearfix">
                                         @auth
-                                            <?php  
-                                            $_cart = Auth::user()->products->sortBy('id');
-                                            ?>
-                                           
-                                            @for ($i = 0; $i < $_cart->count(); $i++  )
+                                        <?php
+                                            $_cart = Auth::user()->products->sortBy('id')->toArray();
+                                        ?>
+                                            @for ($i = 0; $i < count($_cart); $i++  )
                                 
                                                 <?php
                                                     
                                                     $product = $_cart[$i];
-
-                                                    echo $i;
-                                                    $current_id = $product->id;
-                                                    $sum+=$product->price;
+                                                    $current_id = $product['id'];
+                                                    $sum+=$product['price'];
                                                     ?>
-                                                @if ($i+1 != $_cart->count() && $current_id == $_cart[$i+1]->id )
+                                                @if ($i+1 != count($_cart) && $current_id == $_cart[$i+1]['id'] )
                                                     <?php 
                                                         $quantity += 1; 
                                                     ?>
                                                 @else
                                                     <?php 
-                                                        
-                                                        echo 'prev '. $current_id;
-                                                        $current_id = $product->id;
+                                            
+                                                        $current_id = $product['id'];
                                                         
                                                     ?>
                                                     <div class="single-cart clearfix">
                                                         <div class="cart-photo">
-                                                            <a href="#"><img src={{asset("assets/img/product/". $product->image)}} alt="" /></a>
+                                                            <a href="#"><img src={{asset("assets/img/product/". $product['image'])}} alt="" /></a>
                                                         </div>
                                                         <div class="cart-info">
-                                                            <h5><a href="#">{{$product->title}}</a></h5>
-                                                            <p class="mb-0">Price : $ {{$product->price}}</p>
+                                                            <h5><a href="#">{{$product['title']}}</a></h5>
+                                                            <p class="mb-0">Price : $ {{$product['price']}}</p>
                                                             <p class="mb-0">Qty : {{$quantity}} </p>
-                                                            <form action="/product/cart/delete/{{$product->id}}" method="post">
+                                                            <form action="/product/cart/delete/{{$product['id']}}" method="post">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <span class="cart-delete"><button type="submit"><i class="zmdi zmdi-close"></i></button></span>

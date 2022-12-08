@@ -46,11 +46,12 @@
                         </ul>
                     </div>
                     <div class="send-message mt-60">
-                        <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
+                        <form action="{{route('message')}}" method="post">
+                            @csrf
                             <h4 class="title-1 title-border text-uppercase mb-30">send message</h4>
-                            <input type="text" name="con_name" placeholder="Your name here..." />
-                            <input type="text" name="con_email" placeholder="Your email here..." />
-                            <textarea class="custom-textarea" name="con_message" placeholder="Your comment here..."></textarea>
+                            <input type="text" name="name" placeholder="Your name here..." />
+                            <input type="text" name="email" placeholder="Your email here..." />
+                            <textarea class="custom-textarea" name="message" placeholder="Your comment here..."></textarea>
                             <button class="button-one submit-button mt-20" data-text="submit message" type="submit">submit message</button>
                             <p class="form-message"></p>
                         </form>

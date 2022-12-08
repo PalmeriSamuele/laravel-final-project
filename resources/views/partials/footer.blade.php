@@ -42,9 +42,10 @@
                     <div class="single-footer newsletter-item">
                         <h3 class="footer-title  title-border">Email Newsletters</h3>
                         <div class="footer-subscribe">
-                            <form action="#">
-                                <input type="text" name="email" placeholder="Email Address..." />
-                                <button class="button-one submit-btn-4" type="submit" data-text="Subscribe">Subscribe</button>
+                            <form action="{{route('newsletter')}}" method="post">
+                                @csrf
+                                <input name='email' type="text" placeholder="Enter your email address"/>
+                                <button class="submit-button submit-btn-2 button-one" data-text="subscribe" type="submit" >subscribe</button>
                             </form>
                         </div>
                     </div>

@@ -7,6 +7,7 @@
             <a class="nav-link text-secondary" href="{{route('banners')}}">Banners</a>
             <a class="nav-link text-secondary" href="{{route('backoffice-users')}}">Users</a>
             <a class="nav-link text-secondary" href="{{route('backoffice-teams')}}">Teams</a>
+            <a class="nav-link text-secondary" href="/backoffice/mails">Mails</a>
         @endcan
 
         @canany(['isStock','isAdmin'])
