@@ -154,6 +154,11 @@ Route::middleware('check-user')->group(function(){
         $contact->save();
         return redirect()->back()->with('success','Les informations de contacte ont été modifié');
     });
+    Route::get('/contact', function () {
+        $banner = Banner::all()->where('section','contact')->first();
+        $contact = Contact::first();
+        return view('pages.contact',compact('banner','contact'));
+    });
 });
 
 Route::post('/order/shipped',[MailController::class,'order'])->name('order-mail');
@@ -215,11 +220,7 @@ Route::get('/blog/category/{id}', function ($id) {
 
 
 
-Route::get('/contact', function () {
-    $banner = Banner::all()->where('section','contact')->first();
-    $contact = Contact::first();
-    return view('pages.contact',compact('banner','contact'));
-});
+
 Route::get('/my-account', function () {
     return view('pages.my-account');
 });

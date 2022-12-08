@@ -15,8 +15,8 @@
                             <ul>
                                 <li><a class="search-open" href="#"><i class="zmdi zmdi-search"></i></a></li>
                                 <li><a href="/login"><i class="zmdi zmdi-lock"></i></a></li>
-                                <li><a href="my-account.html"><i class="zmdi zmdi-account"></i></a></li>
-                                <li><a href="wishlist.html"><i class="zmdi zmdi-favorite"></i></a></li>
+                                <li><a href="/my-account"><i class="zmdi zmdi-account"></i></a></li>
+         
                             </ul>
                         </div>
                     </div>
