@@ -43,7 +43,7 @@
                                 <div class="order-info bg-white text-center clearfix mb-30">
                                     <div class="single-order-info">
                                         <h4 class="title-1 text-uppercase text-light-black mb-0">order no</h4>
-                                        <p class="text-uppercase text-light-black mb-0"><strong>m 2653257</strong></p>
+                                        <p class="text-uppercase text-light-black mb-0"><strong>m {{$code}}</strong></p>
                                     </div>
                                     <div class="single-order-info">
                                         <h4 class="title-1 text-uppercase text-light-black mb-0">Date</h4>

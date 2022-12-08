@@ -27,7 +27,7 @@ class UserController extends Controller
                 'company' => 'max:100',
                 'state' => 'max:40',
                 'city' => 'max:40',
-                'image' => 'image|required'
+                'image' => 'image'
 
             
         ]);
@@ -40,11 +40,14 @@ class UserController extends Controller
         $user->state = $request->state;
         $user->city = $request->city;
         $user->adress = $request->adress;
-        $user->image = $request->file('image')->hashName();
+        if($request->image){
+            $user->image = $request->file('image')->hashName();
 
-        $image = Image::make($request->file('image'))->resize(270,270);
-    
-        $image->save('assets/img/users/'.$user->image);
+            $image = Image::make($request->file('image'))->resize(270,270);
+        
+            $image->save('assets/img/users/'.$user->image);
+        }
+
         $user->save();
 
         return redirect()->back()->with('success','Vos informations ont été mit à jour');

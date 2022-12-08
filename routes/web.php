@@ -1,30 +1,35 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CartController;
-use App\Models\Product;
-use App\Models\Categorie;
-use App\Models\HomeCarousel;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeCarouselController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\SideimageController;
-use App\Http\Controllers\UserController;
+use App\Models\Job;
+use App\Models\Blog;
+use App\Models\User;
 use App\Models\About;
 use App\Models\Banner;
-use App\Models\Blog;
-use App\Models\CategoryBlog;
-use App\Models\Job;
 use App\Models\Review;
-use App\Models\User;
+use App\Models\Product;
+use App\Models\Categorie;
+use App\Mail\OrderShipped;
+use App\Models\CategoryBlog;
+use App\Models\HomeCarousel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SideimageController;
+use App\Http\Controllers\HomeCarouselController;
+use App\Http\Controllers\OrderController;
+use App\Models\Contact;
+use App\Models\Order;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +83,8 @@ Route::middleware('check-user')->group(function(){
     Route::get('/backoffice', function () {
         $carousels = HomeCarousel::all();
         $about = About::first();
-        return view('pages.backoffice.pages.backoffice',compact('carousels','about'));
+        $contact = Contact::first();
+        return view('pages.backoffice.pages.backoffice',compact('carousels','about','contact'));
     });
 
     Route::get('/backoffice/users',[UserController::class,'index'])->name('backoffice-users');
@@ -128,7 +134,26 @@ Route::middleware('check-user')->group(function(){
 
     Route::put('blog/add/like/{id}',[BlogController::class,'likes'])->name('like');
 
+    Route::get('/backoffice/orders',[OrderController::class,'index']);
+    Route::delete('/delete/order/{id}',[OrderController::class,'destroy']);
+    Route::put('/contact/updateform', function(Request $request){
+        $request->validate([
+            'country' => 'required|max:100',
+            'city' => 'required|max:100',
+            'adress' => 'required|max:100',
+            'phone' => 'required|max:100',
+     
+        ]);
+        $contact = Contact::all()->first();
+        $contact->country = $request->country;
+        $contact->city = $request->city;
+        $contact->adress = $request->adress;
+        $contact->phone = $request->phone;
+        $contact->email = $request->email;
 
+        $contact->save();
+        return redirect()->back()->with('success','Les informations de contacte ont été modifié');
+    });
 });
 
 Route::post('/order/shipped',[MailController::class,'order'])->name('order-mail');
@@ -168,7 +193,9 @@ Route::get('/about', function () {
     return view('pages.about',compact('banner','boss','employee','content'));
 });
 
-
+Route::get('/connection',function(){
+    return view('auth.login');
+});
 
 Route::get('/blog', function () {
     $blogs = Blog::where('isChecked',1)->paginate(3);
@@ -190,13 +217,21 @@ Route::get('/blog/category/{id}', function ($id) {
 
 Route::get('/contact', function () {
     $banner = Banner::all()->where('section','contact')->first();
-    return view('pages.contact',compact('banner'));
+    $contact = Contact::first();
+    return view('pages.contact',compact('banner','contact'));
 });
 Route::get('/my-account', function () {
     return view('pages.my-account');
 });
 Route::get('/order', function () {
-    return view('pages.order');
+    Mail::to(Auth::user()->email)->send(new OrderShipped(Auth::user()));
+
+    $order = new Order();
+    $order->code = rand(1000,9000);
+    $order->user_id = Auth::user()->id;
+    $order->save();
+    $code = $order->code;
+    return view('pages.order',compact('code'));
 });
 
 

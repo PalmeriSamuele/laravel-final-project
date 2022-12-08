@@ -8,6 +8,7 @@ use App\Mail\OrderShipped;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Mail as _mail;
+use Illuminate\Support\Facades\Auth;
 
 class MailController extends Controller
 {
@@ -16,11 +17,12 @@ class MailController extends Controller
         $mails = _mail::where('isArchiver',0)->get();
         return view('pages.backoffice.pages.mails',compact('mails'));
     }
-    public function order(Request $request){
-        Mail::to($request->email)->send(new OrderShipped($request->all()));
-        return redirect('/order');
+    // public function order(){
+
+    //     Mail::to(Auth::user()->email)->send(new OrderShipped(Auth::user()));
+    //     return redirect('/order');
        
-    }
+    // }
     public function newsletter(Request $request){
         Mail::to($request->email)->send(new Newsletter());
         return redirect()->back()->with('success','Vous vous etes inscrit a la newsletter ! merci bg !');

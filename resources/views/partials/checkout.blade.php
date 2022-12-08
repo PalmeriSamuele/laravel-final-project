@@ -41,9 +41,9 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                          
-                                                <form action='{{route('order-mail')}}' class="billing-details shop-cart-table" method="post">
+                                                <form action='{{'/store/user/info'}}' class="billing-details shop-cart-table" method="post">
                                                     @csrf
-
+                                                    @method('PUT')
                                                     <input name='name' value="{{old('name', Auth::user()->name)}}" type="text" placeholder="Your name here...">
                                                     <input name='email' type="text" placeholder="Email address here..." value="{{old('email',Auth::user()->email)}}">
                                                     <input name='phone' type="text" placeholder="Phone here..." value="{{Auth::user()->phone}}">
@@ -315,7 +315,7 @@
                                                         <option>Ottawa</option>
                                                     </select>
                                                     <textarea name='adress' placeholder="Your address here..." class="custom-textarea">{{old('adress',Auth::user()->adress)}}</textarea>
-                                                    <input type="submit" class=" submit-button submit-btn-one " value="Passer la commande">
+                                                    <input type="submit" class=" submit-button submit-btn-one " value="Enregistrer">
                                                     
                                                 </form>
                                            
@@ -410,8 +410,8 @@
 
                                                     </tbody>
                                                 </table>
-
-                                                {{-- <form action="{{route('order-mail')}}" method="post">
+{{-- 
+                                                <form action="/order" method="post">
 
                                                     @csrf
 
