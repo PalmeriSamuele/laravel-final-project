@@ -24,7 +24,7 @@
 	<!-- SHOPPING-CART-AREA START -->
 	<div class="login-area  pt-80 pb-80">
 		<div class="container">
-			
+
 				<div class="row">
 					<div class="col-lg-6">
 						<form action="{{ route('login') }}" method="post">

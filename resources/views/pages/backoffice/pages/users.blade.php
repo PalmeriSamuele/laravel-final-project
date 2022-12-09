@@ -1,3 +1,7 @@
+<?php
+    use App\Models\User;
+?>
+
 @extends('pages.backoffice.layout.app')
 
 @section('content-backoffice')

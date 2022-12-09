@@ -24,7 +24,7 @@ class CheckUser
         $uri = $request->path();
         
         if(Auth::check()){
-            if($uri == '/contact' && $uri == 'product/cart/store/' . $request->route('id') || $uri == 'product/cart/delete/' . $request->route('id') || $uri== 'cart' || $uri== 'checkout' || $uri== 'order' || ( $request->route('id') && ( $uri == 'blog/store/review/' . $request->route('id') || $uri == 'product/store/review/' . $request->route('id') || $uri == 'blog/add/like/' . $request->route('id') || ($request->route('id') && Review::find($request->route('id')) && Auth::user()->id == Review::find($request->route('id'))->user_id &&  $uri == 'delete/review/' . $request->route('id'))) ) ){
+            if($uri == 'contact' || $uri == 'product/cart/store/' . $request->route('id') || $uri == 'product/cart/delete/' . $request->route('id') || $uri== 'cart' || $uri== 'checkout' || $uri== 'order' || ( $request->route('id') && ( $uri == 'blog/store/review/' . $request->route('id') || $uri == 'product/store/review/' . $request->route('id') || $uri == 'blog/add/like/' . $request->route('id') || ($request->route('id') && Review::find($request->route('id')) && Auth::user()->id == Review::find($request->route('id'))->user_id &&  $uri == 'delete/review/' . $request->route('id'))) ) ){
                 return $next($request);
             }
             if (Auth::user()->role_id == 1) {

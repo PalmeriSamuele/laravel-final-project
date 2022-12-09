@@ -93,7 +93,6 @@
                                                     <h4 class="post-title"><a href="#">{{$product->title}}</a></h4>
                                                 </div>
                                                 <div class="product-action  d-flex gap-3 align-items-center">
-                                                    <a href="#" class='d-flex align-items-center justify-content-center' data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
                                                     <form action="/product/cart/store/{{$product->id}}" method="post" class="">
                                                         @csrf
                                                         <button type="submit" class="" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
@@ -122,7 +121,7 @@
                                     <div class="col-lg-12">
                                     <div class="single-product clearfix">
                                         <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
+                                            {{-- <span class="pro-label new-label">new</span> --}}
                                             <span class="pro-price-2">$ {{$product->price}}</span>
                                             <a href="/product/{{$product->id}}"><img src={{asset("assets/img/product/" . $product->image)}} alt="" /></a>
                                         </div>
@@ -138,11 +137,10 @@
                                                 <p>{{$product->desc}}</p>
                                             </div>
                                             <div class="clearfix">
-                                                <div class="cart-plus-minus">
+                                                {{-- <div class="cart-plus-minus">
                                                     <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                </div>
+                                                </div> --}}
                                                 <div class="product-action  d-flex gap-3 align-items-center">
-                                                    <a href="#" class='d-flex align-items-center justify-content-center' data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
                                                     <form action="/product/cart/store/{{$product->id}}" method="post" class="">
                                                         @csrf
                                                         <button type="submit" class="" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>

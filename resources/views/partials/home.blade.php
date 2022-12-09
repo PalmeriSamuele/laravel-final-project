@@ -51,7 +51,7 @@
         <!-- Slider-banner start -->
         <div class="slider-banner">
             <div class="single-banner banner-1">
-                <a class="banner-thumb" href="#"><img src={{'assets/img/product/'. $new->image}} alt="" /></a>
+                <a class="banner-thumb" href="/product/{{$new->id}}"><img src={{'assets/img/product/'. $new->image}} alt="" /></a>
                 <span class="pro-label new-label">new</span>
                 <span class="price">${{$new->price}}</span>
                 <div class="banner-brief">
@@ -65,7 +65,7 @@
                 
             </div>
             <div class="single-banner banner-2">
-                <a class="banner-thumb" href="#"><img src={{'assets/img/product/' . $favorite->image}} alt="" /></a>
+                <a class="banner-thumb" href="/product/{{$favorite->id}}"><img src={{'assets/img/product/' . $favorite->image}} alt="" /></a>
                 <div class="banner-brief">
                     <h2 class="banner-title"><a href="#">{{$favorite->title}}</a></h2>
                     <p class="hidden-md hidden-sm d-none d-md-block">{{$favorite->desc}}</p>
@@ -168,21 +168,22 @@
         <div class="table">
             <div class="table-cell">
                 <ul>
-                    <li><a class="search-open" href="#" title="Search"><i class="zmdi zmdi-search"></i></a></li>
-                    <li><a href="#" title="Login"><i class="zmdi zmdi-lock"></i></a>
+                    
+                    <li><a href="/login" title="Login"><i class="zmdi zmdi-lock"></i></a>
                         <div class="customer-login text-left">
-                            <form action="{{route('login')}}">
+                            <form action="{{route('login')}}" method="post">
+                                @csrf
                                 <h4 class="title-1 title-border text-uppercase mb-30">Registered customers</h4>
                                 <p class="text-gray">If you have an account with us, Please login!</p>
                                 <input type="text" name="email" placeholder="Email here..." />
                                 <input type="password" placeholder="Password" name='password'/>
-                                <p><a class="text-gray" href="#">Forget your password?</a></p>
+                               
                                 <button class="button-one submit-button mt-15" data-text="login" type="submit">login</button>
                             </form>
                         </div>
                     </li>
                     <li><a href="/my-account" title="My-Account"><i class="zmdi zmdi-account"></i></a></li>
-                    <li><a href="/wishlist" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -228,7 +229,7 @@
                         <div class="single-product">
                             <div class="product-img">
                                 <span class="pro-label new-label">new</span>
-                                <a href="single-product.html"><img src={{asset('assets/img/product/'. $slide->image)}} alt="" /></a>
+                                <a href="/product/{{$slide->id}}"><img src={{asset('assets/img/product/'. $slide->image)}} alt="" /></a>
                                 <div class="product-action  d-flex gap-3 align-items-center">
                                     <a href="#" class='d-flex align-items-center justify-content-center' data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
                                     <form action="/product/cart/store/{{$slide->id}}" method="post" class="">

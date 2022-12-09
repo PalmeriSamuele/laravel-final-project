@@ -77,7 +77,7 @@
                                         @foreach ($reviews as $review )
                                             <div>
                                                 <div class="pro-reviewer">
-                                                    <img src={{ asset('assets/img/user/' . $review->user->image )}} alt="" />
+                                                    <img src={{ asset('assets/img/users/' . $review->user->image )}} alt="" />
                                                 </div>
                                                 <div class="pro-reviewer-comment">
                                                     <div class="fix">

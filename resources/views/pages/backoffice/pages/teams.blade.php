@@ -1,3 +1,8 @@
+<?php
+    use App\Models\User;
+?>
+
+
 @extends('pages.backoffice.layout.app')
 
 @section('content-backoffice')
@@ -19,7 +24,9 @@
                         <option value="{{$user->role->id}}">{{$user->job->job ?? 'None' }}</option>
                             @foreach ($jobs as $job )
                                 @if($user->job_id != $job->id )
-                                    <option value="{{$job->id}}">{{$job->job}}</option>
+                                    @if(!($job->id == 1 &&  User::where('job_id',1)->get()->count() > 0))
+                                        <option value="{{$job->id}}">{{$job->job}}</option>
+                                    @endif
                                 @endif
                             @endforeach
                         

@@ -52,17 +52,17 @@
                             </ul>
                         </div>
                         <!-- Size end -->
-                        <div class="d-felx gap-2">
-                            <div class="col-1">
-                                <input disabled type="text" value="1" name="qtybutton" class="">
-                            </div>
-                            <div class="product-action m-0 d-flex gap-3 align-items-center col-">
+                        <div class="d-felx gap-2 col-lg-3">
+                            
+                            <input disabled type="text" value="1" name="qtybutton" class="col-lg-1">
+                            
+                           
                                 <form action="/product/cart/store/{{$product->id}}" method="post" class="col-1">
                                     @csrf
                                     <button type="submit" class="col-12" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus mt-2"></i></button>
                                 </form>  
 
-                            </div>
+                            
                         </div>
                         <!-- Single-pro-slider Small-photo start -->
                         <div class="single-pro-slider single-sml-photo slider-nav">
@@ -97,10 +97,9 @@
                     <div class="tab-content">
                         <div class="tab-pane" id="description">
                             <div class="pro-tab-info pro-description">
-                                <h3 class="tab-title title-border mb-30">dummy Product name</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
+                                <h3 class="tab-title title-border mb-30">{{$product->title}}</h3>
+                                <p>{{$product->desc}}</p>
+
                             </div>
                         </div>
                         <div class="tab-pane active" id="reviews">
@@ -111,7 +110,7 @@
                                         @foreach ($reviews as $review )
                                             <div>
                                                 <div class="pro-reviewer">
-                                                    <img src={{ asset('assets/img/user/' . $review->user->image )}} alt="" />
+                                                    <img src={{ asset('assets/img/users/' . $review->user->image )}} alt="" />
                                                 </div>
                                                 <div class="pro-reviewer-comment">
                                                     <div class="fix">

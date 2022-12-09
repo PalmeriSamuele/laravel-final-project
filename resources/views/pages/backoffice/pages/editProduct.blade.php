@@ -13,10 +13,13 @@
             @endif
             
         </div>
-   
+        <label for="Titre">Titre</label>
         <input type="text" name="title" value="{{old('title',$product->title)}}">
+        <label for="desc">Description</label>
         <textarea name="desc" cols="30" rows="10">{{old('desc',$product->desc)}}</textarea>
+        <label for="price">Prix</label>
         <input type="number" name="price"  value={{old('price',$product->price)}}>
+        <label for="size">Taille</label>
         <select name="size">
             <option value="{{$product->size}}">{{$product->size}}</option>
 
@@ -32,8 +35,9 @@
                 <option value={{$cat->id}}>{{$cat->name}}</option>
             @endforeach
         </datalist> --}}
+        <label for="stock">Stock</label>
         <input type="number" max="10000" name="stock" id="" placeholder="Nombre de stock" value="{{ old('stock', $product->stock)}}">
-
+        <label for="categorie_id">Categorie</label>
         <select name="categories_id" id="" class="p-2">
             <option value={{$product->categorie->id}}>{{$product->categorie->name}}</option>
 
@@ -41,7 +45,7 @@
                 <option value={{$cat->id}}>{{$cat->name}}</option>
             @endforeach
         </select>
-
+        <label for="image">Image</label>
         <input type="file" name="image" class="btn btn-secondary">
         <img class='col-5' src="{{asset('assets/img/product/' . $product->image)}}" alt="">
        <input type="submit" class="btn btn-success" value="ajouter">
